@@ -1,0 +1,468 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Detailed PFE Report Template (50+ Pages)
+%
+% Based on ESCOMP Style
+% Adapted for "Dalanda" Project by Gemini
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt, a4paper, oneside]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage[french]{babel} % For French typography rules
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\usepackage{geometry}
+\geometry{a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+\usepackage{tocbibind} % Add ToC, LoF, LoT, Bibliography to the Table of Contents
+\usepackage{listings} % For code snippets
+\usepackage{xcolor}   % For custom colors in code
+\usepackage{booktabs} % For professional quality tables
+\usepackage{float}    % To improve figure placement with [H]
+
+% Define custom colors for code listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Configure listings style
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% Spacing between paragraphs
+\setlength{\parskip}{1.5ex}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+\centering
+
+% UPPER PART OF THE PAGE
+\includegraphics[width=0.4\textwidth]{path/to/your/school_logo.png}\\[1.5cm] % Replace with your school logo path
+{\Large \bfseries ECOLE SUPÉRIEURE / UNIVERSITÉ}\\[0.5cm] % Replace with your school name
+{\large Spécialité : Génie Logiciel}\\[2.0cm] % Replace with your specialty
+
+% TITLE
+{\huge \bfseries Projet de Fin d'Études}\\[1.5cm]
+{\LARGE \bfseries Conception et Implémentation d'un Système de Gestion de Factures avec un Assistant Conversationnel via Telegram}\\[2.5cm] % Your project title
+
+% AUTHOR AND SUPERVISORS
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Réalisé par :}\\
+Your Name Here % Your Name
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Encadrants :}\\
+M. Academic Supervisor Name (ESPRIT) \\ % Replace with names
+M. Company Supervisor Name (Company)
+\end{flushright}
+\end{minipage}
+
+\vfill % Fills the vertical space
+
+% LOWER PART OF THE PAGE
+{\large Année Universitaire 2024 - 2025}\\[1cm]
+\includegraphics[width=0.3\textwidth]{path/to/your/company_logo.png} % Replace with your company logo path
+
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	FRONT MATTER
+%----------------------------------------------------------------------------------------
+
+\frontmatter % Roman numerals for page numbers
+
+\chapter*{Dédicaces}
+\vspace*{10cm} % Add vertical space
+\begin{flushright}
+    \textit{À ma famille, mes amis...} % Your dedication text
+\end{flushright}
+\newpage
+
+\chapter*{Remerciements}
+Je tiens à exprimer ma profonde gratitude à... % Your acknowledgements text
+\newpage
+
+\tableofcontents
+\newpage
+
+\listoffigures
+\newpage
+
+\listoftables
+\newpage
+
+\chapter*{Acronymes}
+\begin{tabular}{l l}
+    \textbf{API} & Application Programming Interface \\
+    \textbf{CRUD} & Create, Read, Update, Delete \\
+    \textbf{JWT} & JSON Web Token \\
+    \textbf{JPA} & Jakarta Persistence API \\
+    \textbf{NLP} & Natural Language Processing \\
+    \textbf{PFE} & Projet de Fin d'Études \\
+    \textbf{SPA} & Single Page Application \\
+    \textbf{UML} & Unified Modeling Language \\
+    % Add other acronyms you use
+\end{tabular}
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	MAIN CONTENT
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Arabic numerals for page numbers
+
+\chapter{Introduction Générale}
+% Aim for 2-3 pages for this chapter.
+\section{Contexte}
+% Expand on the business context. Discuss the importance of invoicing for cash flow, compliance, and client relationships, especially for SMEs. Mention the trend of digital transformation and the shift towards mobile-first and automated solutions.
+\section{Problématique}
+% Detail the problem. Many SMEs rely on manual processes (spreadsheets, word documents) which are error-prone and time-consuming. Off-the-shelf software can be expensive or overly complex. The core problem is the need for an accessible, efficient, and modern invoicing tool that integrates into existing communication workflows like Telegram.
+\section{Objectifs du Projet}
+% List the objectives clearly.
+L'objectif principal de ce projet, nommé \textbf{Dalanda}, est de concevoir et de développer une solution complète de gestion de factures. Les sous-objectifs sont les suivants:
+\begin{itemize}
+    \item Mettre en place une API RESTful robuste et sécurisée avec Spring Boot.
+    \item Développer une interface web monopage (SPA) intuitive et réactive avec Angular.
+    \item Implémenter un assistant conversationnel sur Telegram capable de comprendre et d'exécuter des commandes en langage naturel.
+    \item Orchestrer la logique de l'assistant à l'aide de la plateforme d'automatisation n8n.
+    \item Assurer le déploiement de la solution à l'aide de Docker.
+\end{itemize}
+\section{Structure du Rapport}
+% Briefly describe the content of each chapter.
+Ce rapport est structuré en cinq chapitres. Le premier chapitre présente le contexte général du projet... Le deuxième chapitre propose un état de l'art détaillé... Le troisième chapitre est consacré à la conception technique... Le quatrième chapitre décrit l'implémentation concrète... Enfin, le cinquième chapitre est dédié à la stratégie de tests et de validation...
+
+\chapter{Contexte, État de l'Art et Analyse des Besoins}
+% Aim for 8-12 pages. This is a key academic chapter.
+\section{Introduction}
+% Briefly introduce the chapter's goals: setting the scene, analyzing what exists, and defining what needs to be built.
+\section{Présentation de l'Organisme d'Accueil}
+\subsection{Historique et Activités}
+% Describe the company where you did your internship
+\subsection{Positionnement du Projet}
+% Explain how your project fits into the company's goals. Was it an internal need? A proof of concept for future clients?
+\section{État de l'Art}
+\subsection{Analyse Comparative des Systèmes de Facturation}
+% This is a major section. Create a table comparing 3-4 existing solutions (e.g., Zoho Invoice, FreshBooks, Wave).
+% Compare them on criteria like: Features, Pricing, API availability, User Experience, Mobile Access, Automation Capabilities.
+\begin{table}[H]
+    \centering
+    \caption{Tableau comparatif des solutions de facturation existantes.}
+    \label{tab:comparison}
+    \begin{tabular}{l p{3cm} p{3cm} p{3cm}}
+        \toprule
+        \textbf{Critère} & \textbf{Zoho Invoice} & \textbf{FreshBooks} & \textbf{Wave} \\
+        \midrule
+        Modèle de prix & Freemium & Par abonnement & Gratuit (avec frais de transaction) \\
+        Accès API & Oui, complet & Oui & Limité \\
+        Automatisation & Avancée & Moyenne & Basique \\
+        Interface Mobile & App dédiée & App dédiée & Web responsive \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+% After the table, write a paragraph analyzing the results and identifying the gap your project fills.
+\subsection{Étude des Technologies Clés}
+\subsubsection{Architecture Backend : Le choix de Spring Boot}
+% Justify your choice. Talk about the Spring ecosystem (Data JPA, Security), performance, scalability, and why it's suited for enterprise-level applications.
+\subsubsection{Architecture Frontend : Le choix d'Angular}
+% Justify your choice. Discuss its component-based architecture, TypeScript for type safety, powerful CLI, and the benefits of Angular Material for UI consistency.
+\subsubsection{Automatisation et Intégration : La puissance de n8n}
+% Explain what n8n is (workflow automation tool). Why did you choose it over alternatives like Zapier or writing a custom bot from scratch? (e.g., open-source, self-hostable, visual interface).
+\subsubsection{Interfaces Conversationnelles et IA}
+% Discuss the paradigm of conversational UI. Explain the role of NLP/NLU. Briefly mention Large Language Models (LLMs) like GPT-4 and their ability to parse unstructured text into structured data (JSON), which is central to your project.
+\section{Analyse et Spécification des Besoins}
+% This section formally defines the requirements derived from your state-of-the-art analysis.
+\subsection{Besoins Fonctionnels (User Stories)}
+\begin{table}[H]
+    \centering
+    \caption{Exemples de besoins fonctionnels sous forme de User Stories.}
+    \label{tab:user_stories}
+    \begin{tabular}{l p{10cm}}
+        \toprule
+        \textbf{ID} & \textbf{Description} \\
+        \midrule
+        UF-01 & En tant qu'utilisateur, je veux pouvoir m'inscrire et me connecter pour sécuriser l'accès à mes données. \\
+        UF-02 & En tant qu'utilisateur, je veux créer, visualiser, modifier et supprimer des clients et des entreprises. \\
+        UF-03 & En tant qu'utilisateur, je veux créer une facture détaillée (plusieurs articles, taxes, dates). \\
+        UF-04 & En tant qu'utilisateur, je veux pouvoir dire à mon bot Telegram "crée une facture" pour initier le processus de création. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+\subsection{Besoins Non-Fonctionnels}
+% Detail these requirements.
+\begin{itemize}
+    \item \textbf{Sécurité :} Utilisation de HTTPS, mots de passe hashés (BCrypt), protection contre les attaques XSS et CSRF.
+    \item \textbf{Performance :} Temps de réponse de l'API inférieur à 200ms pour les requêtes CRUD.
+    \item \textbf{Fiabilité :} Disponibilité du service de 99.9\%.
+    \item \textbf{Maintenabilité :} Code modulaire, commenté et respectant les bonnes pratiques de chaque framework.
+\end{itemize}
+
+\chapter{Conception et Architecture de la Solution}
+% Aim for 10-15 pages. This chapter shows your engineering thought process.
+\section{Introduction}
+Ce chapitre présente l'architecture logicielle et les modèles de conception détaillés de la solution Dalanda.
+\section{Architecture Globale}
+% Use this section to present your high-level diagrams and explain how everything connects.
+\subsection{Diagramme des Composants}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{path/to/your/component_diagram.png}
+    \caption{Diagramme des composants de l'application.}
+    \label{fig:component_diagram}
+\end{figure}
+\subsection{Diagramme de Déploiement}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{path/to/your/deployment_diagram.png}
+    \caption{Diagramme de déploiement de la solution sur Docker.}
+    \label{fig:deployment_diagram}
+\end{figure}
+\section{Conception Détaillée du Backend}
+\subsection{Modèle Conceptuel de Données (MCD)}
+% Include your class diagram or an Entity-Relationship Diagram.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{path/to/your/class_diagram.png}
+    \caption{Diagramme de classes des entités JPA.}
+    \label{fig:class_diagram_detail}
+\end{figure}
+\subsection{Conception de l'API REST}
+% Create a table listing your main API endpoints.
+\begin{table}[H]
+    \centering
+    \caption{Définition des principaux endpoints de l'API REST.}
+    \label{tab:api_endpoints}
+    \begin{tabular}{lll}
+        \toprule
+        \textbf{Méthode} & \textbf{Endpoint} & \textbf{Description} \\
+        \midrule
+        POST & /api/auth/login & Authentifie un utilisateur et retourne un token JWT. \\
+        GET & /api/invoices & Récupère la liste des factures de l'utilisateur. \\
+        POST & /api/invoices & Crée une nouvelle facture. \\
+        GET & /api/clients & Récupère la liste des clients. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+\subsection{Diagrammes de Séquence des Cas d'Usage Principaux}
+% Include sequence diagrams for key scenarios.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{path/to/your/seq_create_invoice_api.png}
+    \caption{Diagramme de séquence : Création d'une facture via l'API REST.}
+    \label{fig:seq_api}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{path/to/your/seq_create_invoice_telegram.png}
+    \caption{Diagramme de séquence : Création d'une facture via Telegram et n8n.}
+    \label{fig:seq_telegram}
+\end{figure}
+
+\section{Conception du Workflow n8n}
+% Use the image you provided.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{path/to/your/n8n_workflow_full.png}
+    \caption{Vue détaillée du workflow d'automatisation n8n.}
+    \label{fig:n8n_workflow_detail}
+\end{figure}
+\subsection{Logique du Nœud d'IA (Prompt Engineering)}
+% This is a very important part. Explain the prompt you gave to the AI.
+Le prompt système du nœud OpenAI est crucial. Il instruit le modèle de ne répondre qu'en JSON et de structurer sa sortie en fonction de l'intention détectée...
+\begin{lstlisting}[language=json, caption={Exemple de sortie JSON attendue de l'IA}]
+{
+  "action": "client",
+  "companyName": "ABC Corp",
+  "otherInfo": "Some other info"
+}
+\end{lstlisting}
+
+\chapter{Implémentation et Réalisation}
+% Aim for 15-20 pages. This is the core of your work.
+\section{Outils et Environnement de Développement}
+% List the tools: IDE (IntelliJ/VSCode), Java version, Node.js version, Maven/NPM, Docker, Git, etc.
+\section{Implémentation du Backend (Spring Boot)}
+\subsection{Configuration du Projet et des Dépendances}
+% Talk about your pom.xml, application.properties, and the key dependencies you used.
+\subsection{Couche Persistance avec Spring Data JPA}
+% Show an example of a JPA Entity and its corresponding Repository.
+\begin{lstlisting}[language=Java, caption={Entité JPA `Invoice`}]
+// Your Invoice.java entity code
+@Entity
+@Table(name = "invoices")
+public class Invoice {
+    // ...
+}
+\end{lstlisting}
+\subsection{Couche Sécurité avec Spring Security et JWT}
+% Explain your SecurityConfig, JWT generation/validation utility, and how you protected your endpoints with @PreAuthorize or similar.
+\subsection{Implémentation des Services et de la Logique Métier}
+% Show a snippet from a service class, for example the `createInvoice` method from `InvoiceServiceImpl`.
+\subsection{Génération des PDF avec iTextPDF}
+% Explain how your PdfGeneratorFactory and ItextPdfGenerator classes work. Show a code snippet of how you build the PDF document structure.
+
+\section{Implémentation du Frontend (Angular)}
+\subsection{Mise en Place et Architecture du Projet}
+% Discuss your folder structure (modules, components, services), routing, and state management strategy.
+\subsection{Service d'Authentification et Intercepteur HTTP}
+% Show your AuthService and the HttpInterceptor used to attach the JWT token to outgoing requests.
+\subsection{Implémentation du Formulaire de Facture}
+% Explain the use of Reactive Forms, FormBuilder, and especially FormArray for the invoice items. Show a relevant snippet from your component's TypeScript file.
+\begin{lstlisting}[language=TypeScript, caption={Gestion des articles avec FormArray}]
+// Your invoice-form.component.ts snippet for itemsArray
+get itemsArray(): FormArray {
+  return this.invoiceForm.get('items') as FormArray;
+}
+
+addItem(): void {
+  this.itemsArray.push(this.createItem());
+}
+\end{lstlisting}
+\subsection{Affichage des Données et Communication avec le Backend}
+% Show the home component where you list invoices, and explain how it calls the InvoiceService to fetch data.
+
+\section{Implémentation du Workflow n8n}
+\subsection{Configuration des Nœuds}
+% Detail the configuration of 2-3 key nodes. For example, the "HTTP Request" node for login, showing how you map the username/password and extract the token.
+\subsection{Gestion de Session avec Supabase}
+% Explain the Supabase schema for session management and show the "Get" and "Update" operations in the Supabase nodes.
+\subsection{Défis et Solutions}
+% Discuss a challenge you faced. For example, parsing the complex "items" string from the user in the Code node, or handling authentication tokens securely between n8n and your backend.
+
+\chapter{Tests et Validation}
+% Aim for 5-8 pages. This shows engineering rigor.
+\section{Introduction}
+Pour garantir la qualité et la fiabilité de l'application Dalanda, une stratégie de test à plusieurs niveaux a été mise en œuvre...
+\section{Tests Unitaires}
+\subsection{Tests du Backend}
+% Describe your approach to unit testing services and controllers. Mention tools like JUnit 5, Mockito. Show a simple test case.
+\begin{lstlisting}[language=Java, caption={Exemple de test unitaire pour InvoiceService}]
+// A simple JUnit test case for a method in your service
+@Test
+void testCreateInvoice() {
+    // ...
+}
+\end{lstlisting}
+\subsection{Tests du Frontend}
+% Describe your approach to unit testing Angular components. Mention Karma and Jasmine. Show a simple test case for a component.
+\section{Tests d'Intégration}
+% Describe how you tested the integration between different parts of your system.
+\subsection{Test de l'API REST}
+% Mention tools like Postman or REST Assured to test your API endpoints.
+\subsection{Test du Workflow n8n}
+% Explain how you manually tested the n8n workflow from end-to-end, from sending a message on Telegram to verifying the data in your database.
+\section{Validation Fonctionnelle}
+% Present a table that links your functional requirements (from Chapter 3) to test scenarios, and show their status (e.g., "Passé").
+\begin{table}[H]
+    \centering
+    \caption{Validation des cas d'utilisation.}
+    \label{tab:validation}
+    \begin{tabular}{l l l}
+        \toprule
+        \textbf{ID Besoin} & \textbf{Scénario de Test} & \textbf{Résultat} \\
+        \midrule
+        UF-01 & L'utilisateur entre ses identifiants, reçoit un token. & Passé \\
+        UF-04 & L'utilisateur envoie "crée une facture" sur Telegram... & Passé \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\chapter{Conclusion Générale}
+% Aim for 2-3 pages.
+\section{Bilan du Projet}
+% Summarize what you did and how it met the objectives.
+\section{Apports du Projet}
+\subsection{Apports Techniques et Professionnels}
+% What did you learn? (Spring, Angular, n8n, AI, Docker, etc.)
+\subsection{Apports Personnels}
+% Soft skills: autonomy, problem-solving, project management.
+\section{Limites et Perspectives d'Avenir}
+La solution Dalanda est fonctionnelle, mais peut être étendue :
+\begin{itemize}
+    \item \textbf{Améliorations Immédiates :} Gestion des devises, modèles de PDF personnalisables.
+    \item \textbf{Évolutions Futures :} Un tableau de bord avec des statistiques (revenus, factures impayées), intégration avec des systèmes de paiement, extension vers d'autres plateformes de messagerie (WhatsApp, Slack).
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\begin{thebibliography}{99} 
+    \bibitem{spring}
+    Site officiel de Spring Boot. \url{https://spring.io/projects/spring-boot}
+    
+    \bibitem{angular}
+    Site officiel d'Angular. \url{https://angular.io/}
+    
+    \bibitem{n8n}
+    Site officiel de n8n. \url{https://n8n.io/}
+
+    \bibitem{itext}
+    Site officiel d'iTextPDF. \url{https://itextpdf.com/}
+    
+    % Add other references: books, articles, documentation pages...
+\end{thebibliography}
+
+%----------------------------------------------------------------------------------------
+%	APPENDICES
+%----------------------------------------------------------------------------------------
+
+\appendix
+\chapter{Fichiers de Configuration Clés}
+\section{Backend - pom.xml}
+\begin{lstlisting}[language=XML, caption={Fichier pom.xml du projet Spring Boot.}]
+\end{lstlisting}
+
+\section{Frontend - package.json}
+\begin{lstlisting}[language=json, caption={Fichier package.json du projet Angular.}]
+// Your full package.json content here
+\end{lstlisting}
+
+\chapter{Documentation de l'API}
+% If you used Swagger/OpenAPI, you could include screenshots of the UI here.
+\section{Endpoint /api/invoices}
+% Description of the endpoint...
+\section{Endpoint /api/clients}
+% Description of the endpoint...
+
+
+\end{document}
