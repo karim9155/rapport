@@ -55,7 +55,9 @@
 \pagenumbering{roman}
 
 % ---- ToC ----
-% \tableofcontents
+\tableofcontents
+\listoffigures
+\listoftables
 \newpage
 
 % Switch to arabic numbering for main matter
@@ -65,7 +67,7 @@
 % General Introduction
 % ================================
 \chapter*{General Introduction}
-% \addcontentsline{toc}{chapter}{General Introduction}
+\addcontentsline{toc}{chapter}{General Introduction}
 
 This thesis, undertaken for the *Ministère de l'Intérieur*, addresses these challenges by designing and implementing an intelligent system for the robust matching of Arabic biographical records. We propose a hybrid pipeline that combines rule-based text normalization to unify orthographic variants, a custom phonetic algorithm called Aramix Soundex to account for similarities in pronunciation, and weighted fuzzy string matching using Levenshtein and Jaro-Winkler distances to accurately rank potential matches.
 
@@ -400,32 +402,22 @@ The Product Backlog is a dynamic, ordered list of what is needed to improve the 
 \textbf{Epic} & \textbf{ID} & \textbf{Type} & \textbf{Description} \\
 \hline
 \hline
-User Management & UM-1 & User Story & As an Administrator, I want to create, edit, and delete user accounts so that I can manage access to the system. \\
+Admin Management & UM-1 & User Story & As an Administrator, I want to create, edit, and delete user accounts so that I can manage access to the system. \\
 \hline
 User Management & UM-2 & User Story & As a User, I want to be able to log in and log out of the system to securely access its features. \\
 \hline
-User Management & UM-3 & User Story & As an Administrator, I want an audit dashboard to review user actions and system events for security and accountability purposes. \\
+Admin Management & UM-3 & User Story & As an Administrator, I want an audit dashboard to review user actions and system events for security and accountability purposes. \\
 \hline
 \hline
 Core Matching Functionality & CMF-1 & User Story & As a Government Agent, I want to input a citizen's biographical details into a form to search for potential matches. \\
 \hline
-Core Matching Functionality & CMF-2 & User Story & As a Government Agent, I want to see a list of potential matches ranked by a similarity score so that I can quickly identify the most likely candidates. \\
-\hline
-Core Matching Functionality & CMF-3 & Task & Implement the Jaro-Winkler and Levenshtein algorithms for string similarity. \\
-\hline
-Core Matching Functionality & CMF-4 & Task & Develop the Aramix Soundex phonetic encoding algorithm. \\
-\hline
-Core Matching Functionality & CMF-5 & Task & Create the weighted scoring model to combine individual field scores. \\
-\hline
 \hline
 Family Tree Visualization & FTV-1 & User Story & As a Government Agent, I want to click on a matched record to view the individual's family tree. \\
-\hline
-Family Tree Visualization & FTV-2 & Task & Set up the Neo4j graph database schema for storing family relationships. \\
 \hline
 Family Tree Visualization & FTV-3 & Task & Create the n8n workflow to query Neo4j, generate a family tree image via the OpenAI API, and return it to the frontend. \\
 \hline
 \hline
-System Infrastructure \& Deployment & SID-1 & Task & Set up the PostgreSQL database and create the necessary tables. \\
+System Infrastructure \& Deployment & SI D-1 & Task & Set up the PostgreSQL database and create the necessary tables. \\
 \hline
 System Infrastructure \& Deployment & SID-2 & Task & Dockerize the Rust backend and Angular frontend applications. \\
 \hline
@@ -515,8 +507,6 @@ The following validation rules are applied to the input data:
     \item The sex must be either male or female.
 \end{itemize}
 
-\section{Traceability Matrix}
-(Content to be added)
 
 \section{Conclusion}
 This chapter has defined the requirements for the system, which will guide the design and implementation process.
@@ -604,10 +594,7 @@ Two primary structures are used:
 
 This design allows the system to build a clean, consolidated dictionary of identities in memory. When a new record is loaded from the database, the system traverses the IdentityNode list to find a match. If a matching identity already exists, the new name variations are simply inserted into the corresponding VariationNode lists, effectively merging the records without creating duplicates. This avoids redundant data and simplifies the subsequent matching process.
 
-\subsection{Class Diagram}
-(Content to be added)
 
-\subsection{Sequence Diagram}
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{figures/Search for Matches diagrams.png}
@@ -850,16 +837,10 @@ The distribution of scores is assumed to follow a normal law. This assumption is
 \section{Threshold \(\tau\) Selection}
 The threshold \(\tau\) is selected based on the desired precision and recall rates. A higher threshold will result in a higher precision but a lower recall, while a lower threshold will result in a lower precision but a higher recall.
 
-\section{Classification Rule}
-A record is classified as a match if its score is greater than or equal to the threshold \(\tau\).
-
-\section{Summary}
-This chapter has detailed the mathematical approach and scoring model used in the system.
 
 % ================================
 % Chapter 9
 % ================================
-\chapter{sML}
 
 % ================================
 % Chapter 10
@@ -887,7 +868,7 @@ The author was not provided with a realistic database for this project. Therefor
 
 \begin{appendices}
 \chapter{Use Case Diagrams}
-\includepdf[pages=-]{figures/use_case_diagrams.pdf}
+\includepdf[]{figures/use_case_diagrams.pdf}
 
 \chapter{UML Diagrams}
 \begin{figure}[htbp]
@@ -913,6 +894,7 @@ The author was not provided with a realistic database for this project. Therefor
 
 \chapter{Code Listings}
 \section{Backend: matching.rs}
+\end{document}
 \begin{lstlisting}[language=Rust, caption={Core matching logic from utils/matching.rs}]
 // src/utils/matching.rs
 
@@ -1062,3 +1044,8 @@ pub fn should_consider_candidate(
     // 1) Sex must match
     if in_sex != cand_sex {
         return false
+    }
+
+
+
+
