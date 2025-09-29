@@ -1,468 +1,1064 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Detailed PFE Report Template (50+ Pages)
-%
-% Based on ESCOMP Style
-% Adapted for "Dalanda" Project by Gemini
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt,a4paper]{report}
 
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
+% --- Preamble ---
+\usepackage{fontspec}
+\usepackage{polyglossia}
 
-\documentclass[12pt, a4paper, oneside]{report}
+\setmainlanguage{english}
+\setotherlanguage{arabic}
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{graphicx}
-\usepackage{amsmath, amsfonts, amssymb}
-\usepackage[french]{babel} % For French typography rules
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
-}
+\setmainfont{Times New Roman} % Or any other suitable font for English
+\newfontfamily\arabicfont[Script=Arabic]{Amiri}
+
 \usepackage{geometry}
-\geometry{a4paper, top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\geometry{margin=1in}
+\usepackage{amsmath}
 
-\usepackage{tocbibind} % Add ToC, LoF, LoT, Bibliography to the Table of Contents
-\usepackage{listings} % For code snippets
-\usepackage{xcolor}   % For custom colors in code
-\usepackage{booktabs} % For professional quality tables
-\usepackage{float}    % To improve figure placement with [H]
+\usepackage{graphicx}   % needed for \includegraphics
+\usepackage{pdfpages}   % needed for \includepdf
+\usepackage{caption}
+\captionsetup{style=default}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink]{cleveref}
+\usepackage{appendix}
+\usepackage{listings}
 
-% Define custom colors for code listings
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-% Configure listings style
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+\lstset{
+    basicstyle=\small\ttfamily,
+    breaklines=true,
+    frame=single,
     showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
+    language=rust
 }
-\lstset{style=mystyle}
 
-% Spacing between paragraphs
-\setlength{\parskip}{1.5ex}
-
-%----------------------------------------------------------------------------------------
-
+% ---------------- Document ----------------
 \begin{document}
+% path to your images folder
+\graphicspath{{figures/}}
 
-%----------------------------------------------------------------------------------------
-%	TITLE PAGE
-%----------------------------------------------------------------------------------------
+\newgeometry{margin=0pt}
+\includepdf[pages=-]{Page Garde Rapport Stage(Ang)_page-0001.jpg}
+\restoregeometry
+\clearpage
+\newgeometry{margin=0pt}
+\includepdf[pages=-]{Page Garde Rapport Stage(Ang)_page-0002.jpg}
+\restoregeometry
+\clearpage
+\newgeometry{margin=0pt}
+\includepdf[pages=-]{Page Garde Rapport Stage(Ang)_page-0003.jpg}
+\restoregeometry
+\clearpage
+% ---- Cover page (first page, unnumbered) ----
 
-\begin{titlepage}
-\centering
 
-% UPPER PART OF THE PAGE
-\includegraphics[width=0.4\textwidth]{path/to/your/school_logo.png}\\[1.5cm] % Replace with your school logo path
-{\Large \bfseries ECOLE SUPÉRIEURE / UNIVERSITÉ}\\[0.5cm] % Replace with your school name
-{\large Spécialité : Génie Logiciel}\\[2.0cm] % Replace with your specialty
+% Roman numbering for front matter
+\pagenumbering{roman}
 
-% TITLE
-{\huge \bfseries Projet de Fin d'Études}\\[1.5cm]
-{\LARGE \bfseries Conception et Implémentation d'un Système de Gestion de Factures avec un Assistant Conversationnel via Telegram}\\[2.5cm] % Your project title
-
-% AUTHOR AND SUPERVISORS
-\begin{minipage}{0.4\textwidth}
-\begin{flushleft} \large
-\emph{Réalisé par :}\\
-Your Name Here % Your Name
-\end{flushleft}
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
-\begin{flushright} \large
-\emph{Encadrants :}\\
-M. Academic Supervisor Name (ESPRIT) \\ % Replace with names
-M. Company Supervisor Name (Company)
-\end{flushright}
-\end{minipage}
-
-\vfill % Fills the vertical space
-
-% LOWER PART OF THE PAGE
-{\large Année Universitaire 2024 - 2025}\\[1cm]
-\includegraphics[width=0.3\textwidth]{path/to/your/company_logo.png} % Replace with your company logo path
-
-\end{titlepage}
-
-%----------------------------------------------------------------------------------------
-%	FRONT MATTER
-%----------------------------------------------------------------------------------------
-
-\frontmatter % Roman numerals for page numbers
-
-\chapter*{Dédicaces}
-\vspace*{10cm} % Add vertical space
-\begin{flushright}
-    \textit{À ma famille, mes amis...} % Your dedication text
-\end{flushright}
+% ---- ToC ----
+% \tableofcontents
 \newpage
 
-\chapter*{Remerciements}
-Je tiens à exprimer ma profonde gratitude à... % Your acknowledgements text
-\newpage
+% Switch to arabic numbering for main matter
+\pagenumbering{arabic}
 
-\tableofcontents
-\newpage
+% ================================
+% General Introduction
+% ================================
+\chapter*{General Introduction}
+% \addcontentsline{toc}{chapter}{General Introduction}
 
-\listoffigures
-\newpage
+This thesis, undertaken for the *Ministère de l'Intérieur*, addresses these challenges by designing and implementing an intelligent system for the robust matching of Arabic biographical records. We propose a hybrid pipeline that combines rule-based text normalization to unify orthographic variants, a custom phonetic algorithm called Aramix Soundex to account for similarities in pronunciation, and weighted fuzzy string matching using Levenshtein and Jaro-Winkler distances to accurately rank potential matches.
 
-\listoftables
-\newpage
+This high-performance engine, built in Rust and served via a REST API, powers an intuitive Angular web application that empowers government agents to find individuals quickly and reliably. Furthermore, the system leverages a Neo4j graph database to model family trees, allowing for the reconstruction of familial relationships from identity records. The visualization of these trees is handled by an automated n8n workflow, which processes the graph data, uses a generative AI to create a diagram, and delivers it to the user.
 
-\chapter*{Acronymes}
-\begin{tabular}{l l}
-    \textbf{API} & Application Programming Interface \\
-    \textbf{CRUD} & Create, Read, Update, Delete \\
-    \textbf{JWT} & JSON Web Token \\
-    \textbf{JPA} & Jakarta Persistence API \\
-    \textbf{NLP} & Natural Language Processing \\
-    \textbf{PFE} & Projet de Fin d'Études \\
-    \textbf{SPA} & Single Page Application \\
-    \textbf{UML} & Unified Modeling Language \\
-    % Add other acronyms you use
+By bridging this critical gap, our work aims not only to solve a technical problem but also to restore dignity and access for countless individuals. The following chapters will detail the design, implementation, and evaluation of this solution, demonstrating a practical path toward a more inclusive and efficient digital state.
+
+
+% ================================
+% Chapter 1
+% ================================
+\chapter{Presentation of the Host Organization}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{figures/inetum.jpg}
+  \caption{Inetum, the host organization.}
+  \label{fig:inetum-intro}
+\end{figure}
+
+\section{Inetum: Global Overview}
+Inetum, formerly known as GFI (Groupe Français d'Informatique), is a global IT services company specializing in digital transformation and consulting. In 2021, the group rebranded to Inetum to mark a new era as an expert in the "digital flow."
+
+Today, Inetum operates in over 27 countries across Europe, the Americas, Asia, and Africa. With a dedicated team of nearly 27,000 professionals, the company generated a revenue of €2.2 billion in the last fiscal year. It provides a wide range of services, from consulting and innovation to application development, leveraging its local expertise on a global scale.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/Key_figures_of_Inetum.png}
+  \caption{Key figures of Inetum (employees, offices, revenue, etc.).}
+  \label{fig:key-figures-inetum}
+\end{figure}
+
+\section{Inetum in the World}
+Inetum maintains strong alliances with the world's leading software and hardware vendors to deliver robust and integrated solutions. Key strategic partners include SAP, Microsoft, IBM, Oracle, Salesforce, and Sage. These partnerships enable Inetum to offer cutting-edge technologies and enterprise-grade solutions to its clients.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/Inetum_Worldwide.png} 
+  \caption{Inetum worldwide presence.}
+  \label{fig:inetum-worldwide}
+\end{figure}
+
+\section{Inetum in Tunisia}
+The Tunisian subsidiary of Inetum has over a decade of experience in IT organization and systems integration. With a team of more than 250 employees, the branch has achieved an annual revenue of €10 million in recent years.
+
+Inetum Tunisia serves both public and private sector clients by leveraging the group's global expertise while adapting it to the regional context. The branch's activities are structured around four main pillars:
+\begin{itemize}
+    \item \textbf{Consulting and Services:} Including custom development for web and mobile portals, IoT solutions, and UX design.
+    \item \textbf{Business Intelligence:} Providing data-driven insights and analytics.
+    \item \textbf{Enterprise Solutions:} Implementing and managing solutions from partners like SAP and Microsoft.
+    \item \textbf{Human Resources (SIRH):} Offering specialized HR information systems.
+\end{itemize}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/org_chart.png}
+  \caption{High-level organizational chart (Inetum Tunisia).}
+  \label{fig:org-chart}
+\end{figure}
+
+
+
+
+
+
+\section{Core Values}
+Inetum's core values are ambition, commitment, excellence, innovation, and solidarity. These values guide the company's actions and decisions, and they are reflected in the quality of the services and solutions that Inetum provides to its clients.
+
+
+
+\section{Clients}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.9\textwidth]{figures/Clients.jpg}
+  \caption{Representative Inetum clients across sectors.}
+  \label{fig:inetum-clients}
+\end{figure}
+
+\subsection{Sectors of Activity}
+With its multi-specialist profile, Inetum provides a distinctive blend of proximity, sector-based organization, and high-quality industrial solutions to its clients. The group serves a wide range of industries, including:
+\begin{itemize}
+    \item Banking and Financial Services
+    \item Telecommunications and Technology
+    \item Retail and Services
+    \item Government and Public Sector
+    \item Manufacturing and Industry
+\end{itemize}
+
+\subsection{Strategic Partners}
+Inetum maintains strong alliances with the world's leading software and hardware vendors to deliver robust and integrated solutions. Key strategic partners include SAP, Microsoft, IBM, Oracle, Salesforce, and Sage. These partnerships enable Inetum to offer cutting-edge technologies and enterprise-grade solutions to its clients.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.9\textwidth]{figures/partners.png}
+  \caption{Strategic partners supporting Inetum’s services.}
+  \label{fig:inetum-partners}
+\end{figure}
+
+\section{Conclusion}
+This chapter introduced the host organization, Inetum, and its Tunisian branch, providing an overview of its global presence, values, and clients.
+
+% ================================
+% Chapter 2
+% ================================
+\chapter{Project Context and Planning}
+
+\section{Introduction}
+This chapter transitions from the organizational context to the core of the project itself. The primary goal of this initiative is to replace an outdated, manual, and often inefficient identity verification system with a modern, high-performance, and intelligent solution. The existing processes, heavily reliant on paper-based records and basic digital tools, are inadequate for handling the linguistic nuances of Arabic names, leading to significant delays and potential errors that impact citizen services.
+
+This chapter will provide a comprehensive overview of the project, beginning with a detailed problem statement that highlights the specific challenges faced by the Ministère de l'Intérieur. From there, we will define the project's objectives and scope, outlining what we aim to achieve. We will then present the proposed solution, including its high-level architecture and the technology stack chosen to meet the demanding requirements of performance, accuracy, and scalability. Finally, the chapter will cover the development methodologies and project planning that guided the execution of this complex undertaking, ensuring a structured path from conception to deployment.
+
+\section{Problem Statement}
+The motivation for this project stems from the shortcomings of the current systems, which are ill-equipped to handle the complexities of Arabic names. The core challenges can be summarized as follows:
+\begin{itemize}
+    \item \textbf{Linguistic Variability of Arabic Names:} Orthographic and phonetic ambiguities create significant challenges for digital systems that rely on exact matches.
+    \item \textbf{Costs and Risks of Manual Verification:} The manual process is slow, expensive, and prone to errors that can deny citizens access to essential services.
+    \item \textbf{Need for a Modern and Responsive UX:} The current tools are outdated and inefficient, leading to a poor user experience for government agents and long wait times for citizens.
+\end{itemize}
+
+The problem is particularly acute for individuals who may lack a national ID number, including:
+\begin{itemize}
+    \item \textbf{Newborns and Unregistered Births:} Especially in rural areas where births may not be officially declared in a timely manner.
+    \item \textbf{Minors:} Who often rely on family booklets or birth certificates before being issued a national ID at age 16 or 18.
+    \item \textbf{Citizens Living Abroad:} Who may have lost documents or only have foreign transliterations of their names.
+    \item \textbf{Elderly People:} Many of whom were born before the era of digitization and are only listed in handwritten registers.
+    \item \textbf{Vulnerable Populations:} Such as homeless individuals or refugees who may be disconnected from the civil registry.
+\end{itemize}
+
+\section{Study of the Existing System}
+The current identity verification process is predominantly manual, leading to significant inefficiencies and risks. Key characteristics of the existing system include:
+\begin{itemize}
+    \item \textbf{Manual Paper-Based Management:} All requests and supporting documents are archived on printed media. Biographical information is often entered by hand into physical registers or basic spreadsheets.
+    \item \textbf{Visual Matching and Spreadsheets:} Agents manually scan lists to identify duplicates and inconsistencies. This process relies heavily on intensive filtering and sorting in tools like Excel or Access, which lack sophisticated similarity algorithms.
+    \item \textbf{Lack of Centralization and Automation:} Data is fragmented across silos in different departments, consulates, and local databases. The process is slow, prone to human error, and provides no real-time feedback.
+\end{itemize}
+
+\section{Objectives \& Success Criteria}
+The primary objective of this project is to develop a highly accurate and efficient system for Arabic identity matching.
+Success will be measured by the following criteria:
+\begin{itemize}
+    \item \textbf{Accuracy:} The system must achieve a high precision and recall rate in matching Arabic names.
+    \item \textbf{Performance:} The matching process should be fast enough to handle real-time requests.
+    \item \textbf{Scalability:} The system should be able to handle a large volume of data and users.
+    \item \textbf{Usability:} The user interface should be intuitive and easy to use.
+\end{itemize}
+
+\section{Project Scope}
+\subsection{Scope, Dataset, and Boundaries}
+The scope of this project is to develop a system for matching Arabic identities from a given dataset. The dataset consists of a large number of identity records, each containing personal information such as name, date of birth, and place of birth. The system assumes that the input data is in a specific format and that the database is accessible. The main constraint is the performance of the matching algorithm, which must be fast enough to handle real-time requests.
+
+\subsection{Stakeholders \& Core Use Cases}
+The main stakeholders of the project are the users who need to match identities (e.g., government agents), and the administrators who manage the system. The core use cases include:
+\begin{itemize}
+    \item Searching for a citizen's record using partial or inexact information.
+    \item Verifying an individual's identity when a national ID is not available.
+    \item Reconstructing family relationships through the family tree visualization.
+\end{itemize}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.9\textwidth]
+  {figures/Core Use Cases Hierarchy.png}
+  \caption{Core Use Cases Hierarchy.}
+  \label{fig:Core_Us_Cases_Hierarchy}
+\end{figure}
+
+\section{Proposed Solution}
+
+\subsection{Proposed Solution --- Tunisian\_NamesML}
+The proposed solution is a modern, hybrid system that addresses the core challenges of Arabic name matching.
+Hybrid identity matching combines text normalization to unify orthographic variants, a custom phonetic algorithm (Aramix Soundex), and fuzzy matching using Levenshtein and Jaro-Winkler.
+Visualization and automation are achieved through n8n for process orchestration, Gemini AI for data parsing and simplification, and Python for automated diagram generation.
+
+The technology stack includes Angular for the frontend, Rust with Axum for a high-performance backend, PostgreSQL for structured identity records, and Neo4j for managing family tree relationships.
+
+For deployment, the entire system is containerized.
+
+\subsection{General Overview}
+This project focuses on the development of an identity matching system specifically
+adapted to the Arabic language. Unlike Latin-based systems, Arabic introduces unique challenges such as orthographic variability, phonetic ambiguity, and transliteration issues.
+
+For example, the system must handle:
+\begin{itemize}
+    \item \textarabic{همزة} (ء) in its multiple forms (\textarabic{أ، إ، ؤ، ئ}) and their interchangeable usage.
+    \item \textarabic{تنوين} (\textarabic{ً ٍ ٌ}) which may appear or be omitted in different records.
+    \item Diacritics (\textarabic{حركات}) like \textarabic{َ ِ ُ} that are often inconsistently written.
+    \item Ligatures such as (\textarabic{ﻻ}) for "lam-alef".
+    \item Variations in letter forms, e.g., "\textarabic{ة}" vs "\textarabic{ه}", or "\textarabic{ى}" vs "\textarabic{ي}".
+    \item Prefix and naming conventions (\textarabic{الـ، ابن، بن، بنت، أبو، أم}).
+\end{itemize}
+
+The objective is to design a reliable and scalable solution that integrates seamlessly into existing organizational workflows while accounting for these Arabic-specific linguistic variations. By combining normalization, phonetic encoding (Aramix Soundex), and fuzzy similarity scoring, the system ensures robust identity matching across heterogeneous data sources.
+
+\subsection{High-Level Architecture}
+The system is designed with a microservices-oriented approach, separating the core matching logic from the family tree generation process. The main components are:
+\begin{itemize}
+    \item \textbf{Angular Frontend:} A responsive single-page application providing the user interface for government agents.
+    \item \textbf{Rust Backend:} A high-performance REST API that handles user authentication, identity matching requests against the PostgreSQL database, and initiates family tree generation by calling the n8n workflow.
+    \item \textbf{Databases:} PostgreSQL for storing primary identity records and Neo4j for modeling and querying complex family relationships as a graph.
+    \item \textbf{n8n Automation Workflow:} A dedicated workflow that orchestrates the entire family tree visualization process, acting as a middleware that connects multiple services.
+\end{itemize}
+
+The family tree generation follows a specific, automated sequence, as summarized in the following speaker notes.
+
+\subsubsection*{Family Tree Diagram Speaker Notes (short):}
+\begin{quote}
+“The family tree feature starts when an agent requests to generate a person’s family tree. The request goes through the Family Tree API, which checks credentials, fetches raw family data, and sends it to the n8n workflow service. AI processing transforms the raw data into structured JSON, which is returned as a tree visualization. Finally, the interface renders the complete family tree for the agent to explore.”
+\end{quote}
+
+\subsubsection*{n8n Workflow (Concise Script):}
+\begin{quote}
+“Webhook receives Neo4j JSON (raw relations). The payload is sent to Gemini with a prompt to parse and normalize entities/links. The structured output flows to a Python script that renders diagrams, then returns visuals to the frontend via the webhook response.”
+\end{quote}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/n8nwork.png}
+  \caption{n8n workflow for family tree generation.}
+  \label{fig:n8n-workflow}
+\end{figure}
+
+\paragraph{LLM Choice}
+Currently, Gemini serves as the AI model within the n8n workflow. For future iterations, a self-hosted LLM (such as Ollama or another open-source alternative) could be dedicated to this function to provide a more secure and faster response.
+
+\subsection{Technology Stack}
+The choice of technologies was driven by the project's requirements for performance, scalability, and modern user experience. Each component was selected to fill a specific role in the architecture.
+
+\begin{itemize}
+    \item \textbf{Rust \includegraphics[height=1.2em]{figures/Rust.png}:} Chosen for the backend due to its exceptional performance, memory safety, and concurrency features, which are critical for handling real-time matching requests efficiently.
+    \item \textbf{Angular \includegraphics[height=1.2em]{figures/Angular.png}:} A powerful frontend framework used to build the responsive and feature-rich single-page application (SPA) that serves as the user interface for government agents.
+    \item \textbf{PostgreSQL \includegraphics[height=1.2em]{figures/postgres.png}:} A reliable and scalable open-source relational database used to store the core identity records, offering robust data integrity and performance.
+    \item \textbf{Neo4j \includegraphics[height=1.2em]{figures/Neo4j.png}:} A native graph database ideal for managing and querying the complex, interconnected data of family trees. Its graph-based model allows for efficient traversal of familial relationships.
+    \item \textbf{n8n \includegraphics[height=1.2em]{figures/n8n.png}:} A low-code workflow automation tool used to orchestrate the family tree visualization process. It acts as the glue between the backend, the AI model, the Python script, and Google Drive, allowing for complex process automation without cluttering the main backend codebase.
+    \item \textbf{Google Gemini API:} A powerful generative AI model used within the n8n workflow to intelligently parse the complex JSON output from Neo4j and transform it into a simplified, structured format suitable for the diagram generation script.
+    \item \textbf{Python:} Used for a dedicated microservice whose sole responsibility is to take the simplified JSON data and generate a family tree diagram. This separation of concerns keeps the main backend focused on its core tasks.
+    \item \textbf{Google Drive:} Serves as the storage solution for the final generated family tree images, providing easy and secure access.
+    \item \textbf{Docker:} Used for containerizing the entire application stack (backend, frontend, databases), ensuring consistent development and deployment environments.
+\end{itemize}
+
+\subsection{Deployment Strategy}
+The entire system is designed for containerized deployment using Docker, ensuring consistency across development, testing, and production environments. This approach simplifies dependency management and enhances portability.
+
+\subsubsection{Application Containerization}
+Both the Rust backend and the Angular frontend are containerized using multi-stage \textbf{Dockerfiles}. This best-practice technique involves using a first stage (the "builder") with the full SDK (Rust and Node.js, respectively) to compile the application and its dependencies. The second stage then copies only the final compiled artifact (the Rust binary and the static Angular files) into a minimal, production-ready base image (like debian:bullseye-slim or nginx:alpine). This process results in final images that are significantly smaller, have a reduced attack surface, and are free from unnecessary build tools and source code, making them more secure and efficient.
+
+\subsubsection{Service Orchestration}
+The various services are orchestrated using \textbf{Docker Compose}. The docker-compose.yml file defines and configures the application's services, networks, and volumes. It automates the process of starting the entire stack, including:
+\begin{itemize}
+    \item The \textbf{Angular frontend} service, built from its Dockerfile and served by Nginx.
+    \item The \textbf{Rust backend} service, built from its Dockerfile.
+    \item A \textbf{PostgreSQL} service for the relational database.
+\end{itemize}
+This setup ensures that all components can communicate with each other over a defined Docker network and that database state can be persisted across container restarts.
+
+The \textbf{n8n workflow}, while central to the family tree generation process, is managed as a separate deployment. It can be self-hosted using its official Docker image and is integrated with the main application via secure webhook calls, a common pattern in microservice architectures.
+
+\section{Development Methodology}
+The project follows a hybrid approach, combining the Scrum framework for project management with the CRISP-DM methodology for the data science lifecycle.
+
+\subsection{Scrum Framework}
+The project was managed using the Scrum methodology, an agile framework based on short cycles called sprints, lasting 2 to 4 weeks.
+The Product Owner was the Ministry of Interior. The Scrum Master, Mouaïa Ben Hamed, supported the process, and the development work was carried out by the author.
+Work was planned through sprint backlogs, guided by a clear definition of done, with daily and review meetings.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/Scrum schema.png}
+    \caption{scrum}
+\end{figure}
+
+\subsection{CRISP-DM Methodology}
+The data science component of the project followed the \textbf{Cross-Industry Standard Process for Data Mining (CRISP-DM)}. This methodology provides a structured approach to planning a data mining project. It is a robust and well-proven methodology. The phases were applied as follows:
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/crispdm.png}
+  \caption{CRISP-DM Methodology.}
+  \label{fig:crisp-dm}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Business Understanding:} Focused on defining the core problem of identity matching within the operational context of the Ministère de l'Intérieur. This involved understanding the project objectives and requirements from a business perspective.
+    \item \textbf{Data Understanding:} Involved an in-depth analysis of the identity records to identify patterns, inconsistencies, and the types of orthographic and phonetic variations in Arabic names. This initial data collection and exploration helped to familiarize with the data and identify any quality issues.
+    \item \textbf{Data Preparation:} Consisted of developing the text normalization pipeline to clean and standardize the names before matching. This phase covered all activities to construct the final dataset from the initial raw data.
+    \item \textbf{Modeling:} Centered on designing and implementing the hybrid matching algorithm, which combines phonetic encoding (Aramix Soundex) and fuzzy string similarity metrics. Various modeling techniques were selected and applied, and their parameters were calibrated to optimal values.
+    \item \textbf{Evaluation:} The model's performance was measured for accuracy using a predefined golden set of matches and for speed via load testing. Before proceeding to final deployment, it was important to thoroughly evaluate the model and review the steps executed to construct it.
+    \item \textbf{Deployment:} The final system, including the backend API and frontend application, was containerized using Docker for deployment. The model was deployed into a production environment, ready to be used by the end-users.
+\end{itemize}
+By integrating these phases into the Scrum sprints, the development of the matching engine was both systematic and agile, ensuring that the data science components were developed iteratively and aligned with the overall project goals.
+
+\section{Project Planning}
+\subsection{Roadmap \& Timeline}
+The project was executed over a six-month period, organized into three main phases. This structure allowed for a systematic progression from foundational research to final deployment, with iterative development within each phase.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/timeline.png}
+  \caption{Project timeline and roadmap.}
+  \label{fig:timeline}
+\end{figure}
+
+\subsubsection{Phase 1: Foundation \& Analysis (Months 1-2)}
+This initial phase focused on establishing the project's groundwork. Key activities included:
+\begin{itemize}
+    \item A deep dive into the business requirements of the Ministère de l'Intérieur.
+    \item Thorough analysis of the dataset to understand its structure and the nuances of Arabic name variations.
+    \item Design of the system architecture and initial setup of the development environment (Rust backend, Angular frontend).
+    \item Development of the initial text normalization and phonetic encoding prototypes.
+\end{itemize}
+
+\subsubsection{Phase 2: Core Development \& Implementation (Months 3-4)}
+This phase involved the bulk of the implementation work. The focus was on building the core components of the system:
+\begin{itemize}
+    \item Implementation of the full matching engine, including the weighted scoring algorithm combining Jaro-Winkler and Levenshtein metrics.
+    \item Development of the backend REST API using Axum to serve the matching logic.
+    \item Creation of the user interface with Angular, allowing agents to input data and view match results.
+    \item Integration with the Neo4j graph database and implementation of the n8n workflow for automated family tree image generation.
+\end{itemize}
+
+\subsubsection{Phase 3: Evaluation, Refinement \& Deployment (Months 5-6)}
+The final phase was dedicated to testing, improving, and preparing the system for production. Activities included:
+\begin{itemize}
+    \item Rigorous evaluation of the matching algorithm's accuracy using the golden set.
+    \item Performance profiling and optimization of the backend to ensure low latency.
+    \item Incorporating user feedback to refine the frontend and user experience.
+    \item Containerizing the application using Docker and preparing the deployment pipeline.
+\end{itemize}
+
+\subsection{Project Backlog}
+The Product Backlog is a dynamic, ordered list of what is needed to improve the product. The following table represents a sample of the initial backlog created for this project, detailing the key epics, user stories, and tasks.
+
+\begin{center}
+\begin{tabular}{|p{3cm}|l|l|p{6cm}|}
+\hline
+\textbf{Epic} & \textbf{ID} & \textbf{Type} & \textbf{Description} \\
+\hline
+\hline
+User Management & UM-1 & User Story & As an Administrator, I want to create, edit, and delete user accounts so that I can manage access to the system. \\
+\hline
+User Management & UM-2 & User Story & As a User, I want to be able to log in and log out of the system to securely access its features. \\
+\hline
+User Management & UM-3 & User Story & As an Administrator, I want an audit dashboard to review user actions and system events for security and accountability purposes. \\
+\hline
+\hline
+Core Matching Functionality & CMF-1 & User Story & As a Government Agent, I want to input a citizen's biographical details into a form to search for potential matches. \\
+\hline
+Core Matching Functionality & CMF-2 & User Story & As a Government Agent, I want to see a list of potential matches ranked by a similarity score so that I can quickly identify the most likely candidates. \\
+\hline
+Core Matching Functionality & CMF-3 & Task & Implement the Jaro-Winkler and Levenshtein algorithms for string similarity. \\
+\hline
+Core Matching Functionality & CMF-4 & Task & Develop the Aramix Soundex phonetic encoding algorithm. \\
+\hline
+Core Matching Functionality & CMF-5 & Task & Create the weighted scoring model to combine individual field scores. \\
+\hline
+\hline
+Family Tree Visualization & FTV-1 & User Story & As a Government Agent, I want to click on a matched record to view the individual's family tree. \\
+\hline
+Family Tree Visualization & FTV-2 & Task & Set up the Neo4j graph database schema for storing family relationships. \\
+\hline
+Family Tree Visualization & FTV-3 & Task & Create the n8n workflow to query Neo4j, generate a family tree image via the OpenAI API, and return it to the frontend. \\
+\hline
+\hline
+System Infrastructure \& Deployment & SID-1 & Task & Set up the PostgreSQL database and create the necessary tables. \\
+\hline
+System Infrastructure \& Deployment & SID-2 & Task & Dockerize the Rust backend and Angular frontend applications. \\
+\hline
+System Infrastructure \& Deployment & SID-3 & Task & Create a docker-compose.yml file for easy local deployment. \\
+\hline
 \end{tabular}
-\newpage
+\end{center}
 
-%----------------------------------------------------------------------------------------
-%	MAIN CONTENT
-%----------------------------------------------------------------------------------------
+\subsection{Risk \& Mitigation}
+\begin{enumerate}
+    \item \textbf{Risk:} The matching algorithm is not accurate enough. \textbf{Mitigation:} Use a combination of different matching techniques and a weighted scoring model.
+    \item \textbf{Risk:} The performance of the system is not good enough. \textbf{Mitigation:} Use a fast programming language like Rust and parallelize the scoring of candidates.
+    \item \textbf{Risk:} The system is not scalable. \textbf{Mitigation:} Use a scalable database like PostgreSQL and a stateless backend architecture.
+    \item \textbf{Risk:} The user interface is not user-friendly. \textbf{Mitigation:} Use a modern frontend framework like Angular and follow best practices for UI/UX design.
+    \item \textbf{Risk:} The project is not completed on time. \textbf{Mitigation:} Use an Agile development methodology and a realistic project roadmap.
+\end{enumerate}
 
-\mainmatter % Arabic numerals for page numbers
+\section{Conclusion}
+This chapter has provided a comprehensive presentation of the project, from its objectives to its technical and methodological choices. It establishes a clear foundation for the subsequent chapters, which will delve into the specific details of the system's analysis, design, and implementation.
 
-\chapter{Introduction Générale}
-% Aim for 2-3 pages for this chapter.
-\section{Contexte}
-% Expand on the business context. Discuss the importance of invoicing for cash flow, compliance, and client relationships, especially for SMEs. Mention the trend of digital transformation and the shift towards mobile-first and automated solutions.
-\section{Problématique}
-% Detail the problem. Many SMEs rely on manual processes (spreadsheets, word documents) which are error-prone and time-consuming. Off-the-shelf software can be expensive or overly complex. The core problem is the need for an accessible, efficient, and modern invoicing tool that integrates into existing communication workflows like Telegram.
-\section{Objectifs du Projet}
-% List the objectives clearly.
-L'objectif principal de ce projet, nommé \textbf{Dalanda}, est de concevoir et de développer une solution complète de gestion de factures. Les sous-objectifs sont les suivants:
-\begin{itemize}
-    \item Mettre en place une API RESTful robuste et sécurisée avec Spring Boot.
-    \item Développer une interface web monopage (SPA) intuitive et réactive avec Angular.
-    \item Implémenter un assistant conversationnel sur Telegram capable de comprendre et d'exécuter des commandes en langage naturel.
-    \item Orchestrer la logique de l'assistant à l'aide de la plateforme d'automatisation n8n.
-    \item Assurer le déploiement de la solution à l'aide de Docker.
-\end{itemize}
-\section{Structure du Rapport}
-% Briefly describe the content of each chapter.
-Ce rapport est structuré en cinq chapitres. Le premier chapitre présente le contexte général du projet... Le deuxième chapitre propose un état de l'art détaillé... Le troisième chapitre est consacré à la conception technique... Le quatrième chapitre décrit l'implémentation concrète... Enfin, le cinquième chapitre est dédié à la stratégie de tests et de validation...
+% ================================
+% Chapter 3
+% ================================
+\chapter{Analysis \& Requirements}
 
-\chapter{Contexte, État de l'Art et Analyse des Besoins}
-% Aim for 8-12 pages. This is a key academic chapter.
 \section{Introduction}
-% Briefly introduce the chapter's goals: setting the scene, analyzing what exists, and defining what needs to be built.
-\section{Présentation de l'Organisme d'Accueil}
-\subsection{Historique et Activités}
-% Describe the company where you did your internship
-\subsection{Positionnement du Projet}
-% Explain how your project fits into the company's goals. Was it an internal need? A proof of concept for future clients?
-\section{État de l'Art}
-\subsection{Analyse Comparative des Systèmes de Facturation}
-% This is a major section. Create a table comparing 3-4 existing solutions (e.g., Zoho Invoice, FreshBooks, Wave).
-% Compare them on criteria like: Features, Pricing, API availability, User Experience, Mobile Access, Automation Capabilities.
-\begin{table}[H]
+This chapter details the functional and non-functional requirements of the system, based on an analysis of the use cases.
+
+\section{Use–Case Model}
+The system has two main actors: government agents and administrators.
+Agents can search for matches and visualize family trees. Administrators manage users and view audit logs.
+All actions are tied to credential checks, ensuring only authorized users can access the system.
+\begin{figure}[htbp]
     \centering
-    \caption{Tableau comparatif des solutions de facturation existantes.}
-    \label{tab:comparison}
-    \begin{tabular}{l p{3cm} p{3cm} p{3cm}}
-        \toprule
-        \textbf{Critère} & \textbf{Zoho Invoice} & \textbf{FreshBooks} & \textbf{Wave} \\
-        \midrule
-        Modèle de prix & Freemium & Par abonnement & Gratuit (avec frais de transaction) \\
-        Accès API & Oui, complet & Oui & Limité \\
-        Automatisation & Avancée & Moyenne & Basique \\
-        Interface Mobile & App dédiée & App dédiée & Web responsive \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-% After the table, write a paragraph analyzing the results and identifying the gap your project fills.
-\subsection{Étude des Technologies Clés}
-\subsubsection{Architecture Backend : Le choix de Spring Boot}
-% Justify your choice. Talk about the Spring ecosystem (Data JPA, Security), performance, scalability, and why it's suited for enterprise-level applications.
-\subsubsection{Architecture Frontend : Le choix d'Angular}
-% Justify your choice. Discuss its component-based architecture, TypeScript for type safety, powerful CLI, and the benefits of Angular Material for UI consistency.
-\subsubsection{Automatisation et Intégration : La puissance de n8n}
-% Explain what n8n is (workflow automation tool). Why did you choose it over alternatives like Zapier or writing a custom bot from scratch? (e.g., open-source, self-hostable, visual interface).
-\subsubsection{Interfaces Conversationnelles et IA}
-% Discuss the paradigm of conversational UI. Explain the role of NLP/NLU. Briefly mention Large Language Models (LLMs) like GPT-4 and their ability to parse unstructured text into structured data (JSON), which is central to your project.
-\section{Analyse et Spécification des Besoins}
-% This section formally defines the requirements derived from your state-of-the-art analysis.
-\subsection{Besoins Fonctionnels (User Stories)}
-\begin{table}[H]
-    \centering
-    \caption{Exemples de besoins fonctionnels sous forme de User Stories.}
-    \label{tab:user_stories}
-    \begin{tabular}{l p{10cm}}
-        \toprule
-        \textbf{ID} & \textbf{Description} \\
-        \midrule
-        UF-01 & En tant qu'utilisateur, je veux pouvoir m'inscrire et me connecter pour sécuriser l'accès à mes données. \\
-        UF-02 & En tant qu'utilisateur, je veux créer, visualiser, modifier et supprimer des clients et des entreprises. \\
-        UF-03 & En tant qu'utilisateur, je veux créer une facture détaillée (plusieurs articles, taxes, dates). \\
-        UF-04 & En tant qu'utilisateur, je veux pouvoir dire à mon bot Telegram "crée une facture" pour initier le processus de création. \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-\subsection{Besoins Non-Fonctionnels}
-% Detail these requirements.
+    \includegraphics[width=\linewidth]{figures/use case diagram.png}
+    \caption{Use case Diagram}
+    \label{fig:use-case-diagram}
+\end{figure}
+
+\subsection{Main Use Cases}
+The main use cases of the system are:
 \begin{itemize}
-    \item \textbf{Sécurité :} Utilisation de HTTPS, mots de passe hashés (BCrypt), protection contre les attaques XSS et CSRF.
-    \item \textbf{Performance :} Temps de réponse de l'API inférieur à 200ms pour les requêtes CRUD.
-    \item \textbf{Fiabilité :} Disponibilité du service de 99.9\%.
-    \item \textbf{Maintenabilité :} Code modulaire, commenté et respectant les bonnes pratiques de chaque framework.
+    \item \textbf{UC-01: Search for Matches:} An agent enters a citizen's details to find potential matches in the national registry.
+    \item \textbf{UC-02: Reconstruct Identity Profile:} An agent uses partial information (e.g., name and parents' names) to reconstruct and verify an identity profile for a citizen with lost or missing documents.
+    \item \textbf{UC-03: Visualize Family Tree:} An agent visualizes a citizen's family tree to understand familial relationships.
 \end{itemize}
 
-\chapter{Conception et Architecture de la Solution}
-% Aim for 10-15 pages. This chapter shows your engineering thought process.
-\section{Introduction}
-Ce chapitre présente l'architecture logicielle et les modèles de conception détaillés de la solution Dalanda.
-\section{Architecture Globale}
-% Use this section to present your high-level diagrams and explain how everything connects.
-\subsection{Diagramme des Composants}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{path/to/your/component_diagram.png}
-    \caption{Diagramme des composants de l'application.}
-    \label{fig:component_diagram}
-\end{figure}
-\subsection{Diagramme de Déploiement}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{path/to/your/deployment_diagram.png}
-    \caption{Diagramme de déploiement de la solution sur Docker.}
-    \label{fig:deployment_diagram}
-\end{figure}
-\section{Conception Détaillée du Backend}
-\subsection{Modèle Conceptuel de Données (MCD)}
-% Include your class diagram or an Entity-Relationship Diagram.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{path/to/your/class_diagram.png}
-    \caption{Diagramme de classes des entités JPA.}
-    \label{fig:class_diagram_detail}
-\end{figure}
-\subsection{Conception de l'API REST}
-% Create a table listing your main API endpoints.
-\begin{table}[H]
-    \centering
-    \caption{Définition des principaux endpoints de l'API REST.}
-    \label{tab:api_endpoints}
-    \begin{tabular}{lll}
-        \toprule
-        \textbf{Méthode} & \textbf{Endpoint} & \textbf{Description} \\
-        \midrule
-        POST & /api/auth/login & Authentifie un utilisateur et retourne un token JWT. \\
-        GET & /api/invoices & Récupère la liste des factures de l'utilisateur. \\
-        POST & /api/invoices & Crée une nouvelle facture. \\
-        GET & /api/clients & Récupère la liste des clients. \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-\subsection{Diagrammes de Séquence des Cas d'Usage Principaux}
-% Include sequence diagrams for key scenarios.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{path/to/your/seq_create_invoice_api.png}
-    \caption{Diagramme de séquence : Création d'une facture via l'API REST.}
-    \label{fig:seq_api}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{path/to/your/seq_create_invoice_telegram.png}
-    \caption{Diagramme de séquence : Création d'une facture via Telegram et n8n.}
-    \label{fig:seq_telegram}
-\end{figure}
-
-\section{Conception du Workflow n8n}
-% Use the image you provided.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{path/to/your/n8n_workflow_full.png}
-    \caption{Vue détaillée du workflow d'automatisation n8n.}
-    \label{fig:n8n_workflow_detail}
-\end{figure}
-\subsection{Logique du Nœud d'IA (Prompt Engineering)}
-% This is a very important part. Explain the prompt you gave to the AI.
-Le prompt système du nœud OpenAI est crucial. Il instruit le modèle de ne répondre qu'en JSON et de structurer sa sortie en fonction de l'intention détectée...
-\begin{lstlisting}[language=json, caption={Exemple de sortie JSON attendue de l'IA}]
-{
-  "action": "client",
-  "companyName": "ABC Corp",
-  "otherInfo": "Some other info"
-}
-\end{lstlisting}
-
-\chapter{Implémentation et Réalisation}
-% Aim for 15-20 pages. This is the core of your work.
-\section{Outils et Environnement de Développement}
-% List the tools: IDE (IntelliJ/VSCode), Java version, Node.js version, Maven/NPM, Docker, Git, etc.
-\section{Implémentation du Backend (Spring Boot)}
-\subsection{Configuration du Projet et des Dépendances}
-% Talk about your pom.xml, application.properties, and the key dependencies you used.
-\subsection{Couche Persistance avec Spring Data JPA}
-% Show an example of a JPA Entity and its corresponding Repository.
-\begin{lstlisting}[language=Java, caption={Entité JPA `Invoice`}]
-// Your Invoice.java entity code
-@Entity
-@Table(name = "invoices")
-public class Invoice {
-    // ...
-}
-\end{lstlisting}
-\subsection{Couche Sécurité avec Spring Security et JWT}
-% Explain your SecurityConfig, JWT generation/validation utility, and how you protected your endpoints with @PreAuthorize or similar.
-\subsection{Implémentation des Services et de la Logique Métier}
-% Show a snippet from a service class, for example the `createInvoice` method from `InvoiceServiceImpl`.
-\subsection{Génération des PDF avec iTextPDF}
-% Explain how your PdfGeneratorFactory and ItextPdfGenerator classes work. Show a code snippet of how you build the PDF document structure.
-
-\section{Implémentation du Frontend (Angular)}
-\subsection{Mise en Place et Architecture du Projet}
-% Discuss your folder structure (modules, components, services), routing, and state management strategy.
-\subsection{Service d'Authentification et Intercepteur HTTP}
-% Show your AuthService and the HttpInterceptor used to attach the JWT token to outgoing requests.
-\subsection{Implémentation du Formulaire de Facture}
-% Explain the use of Reactive Forms, FormBuilder, and especially FormArray for the invoice items. Show a relevant snippet from your component's TypeScript file.
-\begin{lstlisting}[language=TypeScript, caption={Gestion des articles avec FormArray}]
-// Your invoice-form.component.ts snippet for itemsArray
-get itemsArray(): FormArray {
-  return this.invoiceForm.get('items') as FormArray;
-}
-
-addItem(): void {
-  this.itemsArray.push(this.createItem());
-}
-\end{lstlisting}
-\subsection{Affichage des Données et Communication avec le Backend}
-% Show the home component where you list invoices, and explain how it calls the InvoiceService to fetch data.
-
-\section{Implémentation du Workflow n8n}
-\subsection{Configuration des Nœuds}
-% Detail the configuration of 2-3 key nodes. For example, the "HTTP Request" node for login, showing how you map the username/password and extract the token.
-\subsection{Gestion de Session avec Supabase}
-% Explain the Supabase schema for session management and show the "Get" and "Update" operations in the Supabase nodes.
-\subsection{Défis et Solutions}
-% Discuss a challenge you faced. For example, parsing the complex "items" string from the user in the Code node, or handling authentication tokens securely between n8n and your backend.
-
-\chapter{Tests et Validation}
-% Aim for 5-8 pages. This shows engineering rigor.
-\section{Introduction}
-Pour garantir la qualité et la fiabilité de l'application Dalanda, une stratégie de test à plusieurs niveaux a été mise en œuvre...
-\section{Tests Unitaires}
-\subsection{Tests du Backend}
-% Describe your approach to unit testing services and controllers. Mention tools like JUnit 5, Mockito. Show a simple test case.
-\begin{lstlisting}[language=Java, caption={Exemple de test unitaire pour InvoiceService}]
-// A simple JUnit test case for a method in your service
-@Test
-void testCreateInvoice() {
-    // ...
-}
-\end{lstlisting}
-\subsection{Tests du Frontend}
-% Describe your approach to unit testing Angular components. Mention Karma and Jasmine. Show a simple test case for a component.
-\section{Tests d'Intégration}
-% Describe how you tested the integration between different parts of your system.
-\subsection{Test de l'API REST}
-% Mention tools like Postman or REST Assured to test your API endpoints.
-\subsection{Test du Workflow n8n}
-% Explain how you manually tested the n8n workflow from end-to-end, from sending a message on Telegram to verifying the data in your database.
-\section{Validation Fonctionnelle}
-% Present a table that links your functional requirements (from Chapter 3) to test scenarios, and show their status (e.g., "Passé").
-\begin{table}[H]
-    \centering
-    \caption{Validation des cas d'utilisation.}
-    \label{tab:validation}
-    \begin{tabular}{l l l}
-        \toprule
-        \textbf{ID Besoin} & \textbf{Scénario de Test} & \textbf{Résultat} \\
-        \midrule
-        UF-01 & L'utilisateur entre ses identifiants, reçoit un token. & Passé \\
-        UF-04 & L'utilisateur envoie "crée une facture" sur Telegram... & Passé \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-
-\chapter{Conclusion Générale}
-% Aim for 2-3 pages.
-\section{Bilan du Projet}
-% Summarize what you did and how it met the objectives.
-\section{Apports du Projet}
-\subsection{Apports Techniques et Professionnels}
-% What did you learn? (Spring, Angular, n8n, AI, Docker, etc.)
-\subsection{Apports Personnels}
-% Soft skills: autonomy, problem-solving, project management.
-\section{Limites et Perspectives d'Avenir}
-La solution Dalanda est fonctionnelle, mais peut être étendue :
+\subsection{Actors}
+Two main actors interact with the system:
 \begin{itemize}
-    \item \textbf{Améliorations Immédiates :} Gestion des devises, modèles de PDF personnalisables.
-    \item \textbf{Évolutions Futures :} Un tableau de bord avec des statistiques (revenus, factures impayées), intégration avec des systèmes de paiement, extension vers d'autres plateformes de messagerie (WhatsApp, Slack).
+    \item \textbf{Government agent:} verifies identities and explores family trees.
+    \item \textbf{Administrator:} manages the system and oversees operations.
 \end{itemize}
 
-%----------------------------------------------------------------------------------------
-%	BIBLIOGRAPHY
-%----------------------------------------------------------------------------------------
+\subsection{Use Case Flow (UC-01 Search for Matches)}
+In this flow, the Government Agent starts by entering the individual information through the user interface form and submitting the request, which forwards the authentication token to the Authentication Service. Once the credentials are validated and confirmed, the Matching Service is called to perform the search. The Matching Service queries the database to fetch all identities that match the individual's info, retrieves the data, and processes it using the matching algorithm.
 
-\begin{thebibliography}{99} 
-    \bibitem{spring}
-    Site officiel de Spring Boot. \url{https://spring.io/projects/spring-boot}
-    
-    \bibitem{angular}
-    Site officiel d'Angular. \url{https://angular.io/}
-    
-    \bibitem{n8n}
-    Site officiel de n8n. \url{https://n8n.io/}
+After processing, the Matching Service returns a list of potential matches, which are then sent to the User Interface. Finally, the Government Agent sees the matches displayed on their screen.
 
-    \bibitem{itext}
-    Site officiel d'iTextPDF. \url{https://itextpdf.com/}
-    
-    % Add other references: books, articles, documentation pages...
-\end{thebibliography}
+\section{Requirements}
+The system requirements are divided into two categories: functional and non-functional.
 
-%----------------------------------------------------------------------------------------
-%	APPENDICES
-%----------------------------------------------------------------------------------------
+\subsection{Functional Requirements}
+On the functional side, the system must support:
+\begin{itemize}
+    \item User authentication and authorization.
+    \item The management of identities.
+    \item A matching algorithm capable of delivering reliable accuracy scores.
+    \item Family tree visualization.
+    \item Audit logs of user actions for accountability.
+\end{itemize}
 
-\appendix
-\chapter{Fichiers de Configuration Clés}
-\section{Backend - pom.xml}
-\begin{lstlisting}[language=XML, caption={Fichier pom.xml du projet Spring Boot.}]
+\subsection{Non-Functional Requirements}
+On the non-functional side, the solution is required to achieve:
+\begin{itemize}
+    \item High accuracy and precision (using a multi-stage matching algorithm).
+    \item Scalability to handle millions of records.
+    \item Strong security (using JWT Token for authentication and authorization).
+    \item A reliable and usable user experience (with a user friendly UI that is easy to use).
+\end{itemize}
+
+\section{Validation Rules (selected)}
+The following validation rules are applied to the input data:
+\begin{itemize}
+    \item The first and last names are required.
+    \item The date of birth must be a valid date.
+    \item The sex must be either male or female.
+\end{itemize}
+
+\section{Traceability Matrix}
+(Content to be added)
+
+\section{Conclusion}
+This chapter has defined the requirements for the system, which will guide the design and implementation process.
+
+% ================================
+% Chapter 4
+% ================================
+\chapter{State of the Art \& Foundations}
+
+\section{Introduction}
+This chapter explores the existing landscape of identity matching systems, with a focus on the unique challenges posed by Arabic names. We will review current solutions, analyze their limitations, and provide an overview of our proposed approach.
+
+\section{Arabic Identity Matching Challenges}
+The main challenges in Arabic identity matching are orthographic variations, phonetic ambiguity, and data entry errors. These challenges are addressed in our system through a combination of text normalization, phonetic encoding, and fuzzy string matching.
+
+\section{String Similarity Algorithms}
+Our system uses the Jaro and Levenshtein algorithms to measure the similarity between strings. The Jaro algorithm is a measure of similarity between two strings. The Levenshtein algorithm is a measure of the difference between two strings.
+
+\section{Phonetic Encoding (Aramix Soundex)}
+Our system uses a custom Soundex algorithm called Aramix Soundex, which is specifically designed for Arabic names. This algorithm generates a phonetic code for a name, which can then be used to match names that have similar pronunciations.
+
+\section{Text Normalization Techniques}
+Our system uses a variety of text normalization techniques to handle the complexities of Arabic names. These techniques include removing diacritics, standardizing prefixes, and normalizing different forms of Hamza.
+
+\section{Conclusion}
+This chapter has provided a comprehensive overview of the state of the art in Arabic identity matching.
+
+% ================================
+% Chapter 5
+% ================================
+\chapter{System Design}
+
+\section{Introduction}
+This chapter outlines the design of the system, including the architecture, data model, and matching algorithm flow.
+
+
+
+\subsubsection{Logical Architecture}
+
+
+\begin{quote}
+“This diagram shows the logical architecture in detail.
+The frontend Angular app communicates with the Axum backend, which manages authentication with JWT and logs usage.
+The backend runs the matching engine with scoring logic, retrieving identity data from PostgreSQL.
+When a match is confirmed, the frontend also requests related data from Neo4j, which returns the family tree for visualization.”
+\end{quote}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/archi_loquique.png}
+  \caption{Logical Architecture Diagram.}
+  \label{fig:logical-architecture}
+\end{figure}
+
+\subsubsection{Deployment Diagram}
+\begin{quote}
+“The agent uses a web browser to access the system over HTTPS.
+Requests go to a Docker-based environment running the Rust backend, which connects to PostgreSQL for data and to the n8n service for workflows.
+n8n can also call external APIs like Google Gemini for advanced processing.”
+\end{quote}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/deployment_diagram.png}
+  \caption{Deployment Diagram.}
+  \label{fig:deployment-diagram}
+\end{figure}
+
+\subsection{Component Interaction \& Data Flow}
+The frontend sends a request to the backend API with the identity information. The backend then queries the database for candidate records and scores them using the matching algorithm. The results are then returned to the frontend and displayed to the user.
+
+\subsection{Technology Stack \& Deployment}
+The backend is built using Rust, a modern systems programming language that is known for its performance, safety, and concurrency. The frontend is built using Angular, a popular framework for building single-page applications. The system uses a PostgreSQL database to store the identity records.
+
+\section{Data Model \& UML Diagrams}
+\subsection{Entity–Relationship Diagram}
+(Content to be added)
+
+\subsubsection{In-Memory Data Structures: Linked Lists}
+To efficiently manage and consolidate identity records in memory, the system employs custom, singly-linked list structures defined in Rust. This approach is particularly effective for handling the dataset's numerous name variations and for merging duplicate records dynamically as data is loaded. The use of Box<T>, Rust's smart pointer for heap allocation, is idiomatic for these recursive, pointer-like structures.
+
+Two primary structures are used:
+\begin{itemize}
+    \item \textbf{VariationNode:} A simple linked list node where each node stores a single string variation of a name (e.g., "Mohamed", "Mohammed"). The next_variation field is of type Option<Box<VariationNode>>, pointing to the next variation or None.
+    \item \textbf{IdentityNode:} This structure represents a unique individual and holds their complete, normalized biographical data. Each name field within an IdentityNode can point to the head of a VariationNode linked list. Furthermore, the `IdentityNode`s themselves are organized into a larger linked list via the next_identity: Option<Box<IdentityNode>> field.
+\end{itemize}
+
+This design allows the system to build a clean, consolidated dictionary of identities in memory. When a new record is loaded from the database, the system traverses the IdentityNode list to find a match. If a matching identity already exists, the new name variations are simply inserted into the corresponding VariationNode lists, effectively merging the records without creating duplicates. This avoids redundant data and simplifies the subsequent matching process.
+
+\subsection{Class Diagram}
+(Content to be added)
+
+\subsection{Sequence Diagram}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/Search for Matches diagrams.png}
+  \caption{Sequence Diagram for the matching process.}
+  \label{fig:sequence-diagram}
+\end{figure}
+
+\section{Physical Architecture}
+Physically, the system is fully containerized with Docker and orchestrated via Docker Compose.
+ The main services are:
+\begin{itemize}
+    \item Angular frontend (served by Nginx).
+    \item Rust backend service.
+    \item PostgreSQL database.
+    \item Neo4j as an external graph service.
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/archi_physique.png}
+  \caption{Physical Architecture Diagram.}
+  \label{fig:physical-architecture}
+\end{figure}
+
+\section{Matching Algorithm Flow}
+
+\subsection{Name Matching Process}
+Our multi-stage matching algorithm ensures both performance and accuracy.
+\begin{itemize}
+    \item \textbf{Stage 1: Normalization} (clean diacritics, unify Arabic characters, remove prefixes).
+    \item \textbf{Stage 2: Filtering} (by generation: decade of birth).
+    \item \textbf{Stage 3: Parallel Scoring} using Rust’s Rayon library for multi-core speed.
+    \item \textbf{Stage 4: Advanced Scoring} blending Jaro-Winkler, Levenshtein, and Aramix Soundex with weighted scoring.
+\end{itemize}
+
+\subsubsection*{Speaker notes (concise):}
+\begin{quote}
+1- “The process begins with normalization — cleaning names, removing diacritics, and standardizing prefixes. \\
+2 - then we divide the individual by generations according to the year of birth \\
+3 -Then candidates are pre-filtered by gender, DOB , and last-name phonetics. \\
+4- Next, each candidate is scored using Jaro-Winkler(), Levenshtein, and Soundex, with weighted fields and bonuses for strong matches. \\
+5 -Finally, results are sorted, filtered by a threshold of 75, and the top three matches are returned.”
+This hybrid approach is the core innovation of Tunisian\_Name
+\end{quote}
+
+\subsubsection*{Algorithm Definitions}
+\begin{description}
+    \item[Jaro-Winkler:] Measures similarity between two strings.
+    \item[Levenshtein (Edit Distance):] Measures differences between two strings.
+    \item[Soundex:] Converts words into a phonetic code so names that sound alike but are spelled differently map to the same code.
+\end{description}
+
+\subsection{Overview \& Mapping to FRs}
+The matching algorithm is designed to meet the functional requirement of real-time matching. It uses a combination of pre-filtering and parallel scoring to achieve high performance.
+
+\subsection{Pseudocode}
+\begin{lstlisting}[language=]
+function match_identity(input_identity)
+  candidates = pre_filter_candidates(input_identity)
+  results = score_candidates_in_parallel(candidates, input_identity)
+  sort_results_by_score(results)
+  return top_results(results)
+end function
 \end{lstlisting}
 
-\section{Frontend - package.json}
-\begin{lstlisting}[language=json, caption={Fichier package.json du projet Angular.}]
-// Your full package.json content here
-\end{lstlisting}
+\subsection{Performance Optimizations}
+To ensure the system remains responsive even with a large database, several key performance optimizations were implemented.
 
-\chapter{Documentation de l'API}
-% If you used Swagger/OpenAPI, you could include screenshots of the UI here.
-\section{Endpoint /api/invoices}
-% Description of the endpoint...
-\section{Endpoint /api/clients}
-% Description of the endpoint...
+\subsubsection{Generational Searching}
+A critical optimization is the use of "generational searching." Instead of loading the entire multi-million-record database into memory for every request, the system first analyzes the date of birth from the user's input to determine a "generation key" (i.e., the decade of birth). It then queries the PostgreSQL database to load only the records belonging to that specific generation. This dramatically reduces the amount of data that needs to be processed, leading to a significant decrease in memory consumption and initial search latency.
 
+\subsubsection{Multithreaded Scoring}
+After the initial pool of candidates is loaded and pre-filtered, the most computationally intensive task is scoring each candidate against the input. To accelerate this process, the system leverages multithreading through the \textbf{Rayon} library in Rust. Rayon provides data-parallelism capabilities, allowing the system to process the list of candidates concurrently across multiple CPU cores. By simply changing a standard iterator (.iter()) to a parallel one (.par_iter()), the scoring workload is automatically distributed among available threads. This parallel execution model drastically reduces the time required to score hundreds or thousands of candidates, ensuring that the API can deliver results in real-time, even under heavy load.
 
-\end{document}
+\section{Conclusion}
+This chapter has provided a detailed overview of the system's design.
+
+% ================================
+% Chapter 6
+% ================================
+\chapter{Implementation}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/main.rs diagram.png}
+  \caption{Diagram of the main Rust application flow.}
+  \label{fig:main-rs-diagram}
+\end{figure}
+
+\section{Introduction}
+This chapter describes the implementation of the system, broken down by sprints, including the backend, frontend, and database integration.
+
+\subsection{Sprint 1: Backend Foundations and Matching Logic}
+\subsubsection{Sprint Backlog}
+The backlog for this sprint included the following user stories:
+\begin{itemize}
+    \item Set up the Rust development environment.
+    \item Create a new Axum project.
+    \item Define the API endpoint for matching identities.
+    \item Implement the basic data structures for identities and match results.
+    \item Implement the initial version of the weighted scoring algorithm.
+\end{itemize}
+
+\subsubsection{Sprint Design}
+The design for this sprint focused on creating a simple and efficient API for matching identities. The API endpoint was designed to accept a JSON object with the input identity and return a JSON array of match results. The scoring algorithm was designed to be modular, so that it could be easily extended with new matching techniques in the future.
+
+\subsubsection{Implementation Details}
+A single POST endpoint was created at /match. This endpoint accepts an InputIdentity object and returns a list of MatchResult objects. The implementation uses the Axum framework to handle the HTTP requests and responses. The core of the matching logic is the calculate_full_score function, which computes a weighted score based on the similarity of different fields. The initial implementation uses the Jaro similarity metric for string comparison.
+
+\subsubsection{Sprint Review}
+The sprint review demonstrated the basic functionality of the matching API. A command-line client was used to send requests to the API and display the results. The feedback from the review was positive, and the team decided to proceed with the implementation of the more advanced matching features in the next sprint.
+
+\subsection{Sprint 2: Database Integration and Advanced Modules}
+\subsubsection{Sprint Backlog}
+The backlog for this sprint included the following user stories:
+\begin{itemize}
+    \item Connect the backend to the PostgreSQL database.
+    \item Load identity records from the database.
+    \item Implement text normalization functions for Arabic names.
+    \item Implement the Aramix Soundex phonetic algorithm.
+    \item Integrate the advanced matching modules into the scoring algorithm.
+\end{itemize}
+
+\subsubsection{Sprint Design}
+The design for this sprint focused on improving the accuracy of the matching algorithm by adding text normalization and phonetic matching capabilities. The score pair with soundex function was introduced to combine string similarity with phonetic matching. The best score against variations function was added to handle name variations.
+
+\subsubsection{Implementation Details}
+The backend was connected to the PostgreSQL database using the tokio-postgres library. A function load identities by generation was implemented to load records for a specific decade, which is an optimization to reduce the amount of data loaded into memory. Several normalization functions were implemented in normalization.rs to handle the complexities of Arabic text. The aramix soundex function was implemented in phonetic.rs to provide phonetic matching capabilities. These modules were integrated into the main scoring logic in matching.rs.
+
+\subsubsection{Sprint Review}
+The sprint review demonstrated a significant improvement in the accuracy of the matching results. The system was now able to handle a wider range of variations in Arabic names. The team was confident that the system was ready for the frontend development in the next sprint.
+
+\subsection{Sprint 3: Frontend Development and API Connection}
+\subsubsection{Sprint Backlog}
+The backlog for this sprint included the following user stories:
+\begin{itemize}
+    \item Create a new Angular project.
+    \item Design the user interface for the identity matching form.
+    \item Implement the identity matching component.
+    \item Create a service to communicate with the backend API.
+    \item Display the matching results to the user.
+\end{itemize}
+
+\subsubsection{Sprint Design}
+The UI was designed to be simple and intuitive. A single form is used to collect the user's identity information. The matching results are displayed in a clear and concise table, with a detailed breakdown of the score for each match. The frontend is built around the IdentityMatchComponent, which is responsible for managing the user input and displaying the results. An IdentityMatchService is used to encapsulate the communication with the backend API.
+
+\subsubsection{Implementation Details}
+The IdentityMatchComponent was implemented using Angular's reactive forms module to handle user input. The component subscribes to the IdentityMatchService to receive the matching results and updates the UI accordingly. The IdentityMatchService uses Angular's HttpClient to make POST requests to the backend API. The service includes interfaces for the InputIdentity and MatchResult data structures to ensure type safety.
+
+\subsubsection{Sprint Review}
+The sprint review demonstrated the end-to-end functionality of the system. Users were able to enter their identity information in the web interface and see the matching results in real-time. The feedback was very positive, and the team was ready to move on to the final sprint.
+
+\subsection{Sprint 4: Evaluation, Optimization, and Deployment}
+\subsubsection{Sprint Backlog}
+The backlog for this sprint included the following user stories:
+\begin{itemize}
+    \item Create a test suite to evaluate the accuracy of the matching algorithm.
+    \item Profile the performance of the backend and identify any bottlenecks.
+    \item Optimize the code for performance and memory usage.
+    \item Create a deployment pipeline for the system.
+    \item Document the system architecture and deployment process.
+\end{itemize}
+
+\subsubsection{Sprint Design}
+The evaluation strategy focused on measuring the precision and recall of the matching algorithm. A "golden set" of known matches was used to test the system and identify any cases where it failed to produce the correct results. The optimization plan focused on improving the performance of the backend.
+
+\subsubsection{Implementation Details}
+Performance testing was conducted using a load testing tool to simulate a large number of concurrent users. The results of the testing showed that the system was able to handle a high volume of requests without any significant degradation in performance. A deployment pipeline was created using Docker and Docker Compose to automate the deployment of the system.
+
+\subsubsection{Sprint Review}
+The final sprint review demonstrated the completed system, including the performance improvements and the automated deployment pipeline. The stakeholders were very impressed with the results and approved the system for production deployment.
+
+\section{Conclusion}
+This chapter has detailed the implementation of the system.
+
+% ================================
+% Chapter 7
+% ================================
+\chapter{Evaluation}
+
+\section{Introduction}
+This chapter presents the evaluation of the system, including the datasets and test cases used, and the accuracy and performance results.
+
+\section{Datasets and Test Cases}
+The system was tested using a dataset of synthetic identity records. The dataset was designed to cover a wide range of variations in Arabic names, including the cases identified in the problem statement (e.g., unregistered births, citizens living abroad, etc.).
+
+\section{Accuracy and Performance}
+The accuracy of the matching algorithm was evaluated using the "golden set" of known matches. The system achieved a high precision and recall rate. The performance of the system was evaluated using a load testing tool, and the results showed that the system was able to handle a high volume of requests with low latency.
+
+\section{Discussion}
+The evaluation results show that the system is both accurate and performant. The use of a hybrid matching approach, combining text normalization, phonetic encoding, and fuzzy string matching, is effective in handling the complexities of Arabic names.
+
+\section{Conclusion}
+This chapter has evaluated the performance of the system.
+
+% ================================
+% Chapter 8
+% ================================
+\chapter{Mathematical Approach and Scoring Model}
+
+\section{Overview of the Matching Logic}
+The matching process relies on a combination of string similarity metrics and a weighted scoring model.
+
+\section{Score Aggregation Formula}
+The final match score is a weighted sum of the scores of individual fields. The weights are as follows: First Name (35\%), Last Name (30\%), Father's Name (10\%), Grandfather's Name (5\%), Mother's Name (5\%), Date of Birth (10\%), and Place of Birth (5\%). The total score is given by:
+\[
+S_{total} = \frac{\sum_{i=1}^{N} w_i S_i}{\sum_{i=1}^{N} w_i}
+\]
+where $w_i$ is the weight of field $i$, and $S_i$ is the score of field $i$.
+
+\section{Phonetic Encoding with Aramix Soundex}
+The Aramix Soundex algorithm is a custom phonetic encoding algorithm that is specifically designed for Arabic names. It generates a 4-character code that represents the phonetic pronunciation of a name.
+
+\section{Fuzzy Similarity Metrics}
+\subsection{Jaro Similarity}
+The Jaro similarity, $jaro(s_1, s_2)$, of two strings $s_1$ and $s_2$ is defined as:
+\[
+jaro = 
+\begin{cases}
+    0 & \text{if } m = 0 \\
+    \frac{1}{3} \left( \frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m - t}{m} \right) & \text{otherwise}
+\end{cases}
+\]
+where:
+\begin{itemize}
+    \item $|s_1|$ and $|s_2|$ are the lengths of the strings $s_1$ and $s_2$.
+    \item $m$ is the number of matching characters.
+    \item $t$ is half the number of transpositions.
+\end{itemize}
+
+\subsection{Levenshtein Distance}
+The Levenshtein distance, $lev(s_1, s_2)$, is the minimum number of single-character edits (insertions, deletions or substitutions) required to change one string into the other. The normalized Levenshtein similarity is calculated as:
+\[
+lev_{sim}(s_1, s_2) = 1 - \frac{lev(s_1, s_2)}{\max(|s_1|, |s_2|)}
+\]
+
+\section{Score Distribution and Normal Law Assumption}
+The distribution of scores is assumed to follow a normal law. This assumption is used to determine the threshold for matching.
+
+\section{Threshold \(\tau\) Selection}
+The threshold \(\tau\) is selected based on the desired precision and recall rates. A higher threshold will result in a higher precision but a lower recall, while a lower threshold will result in a lower precision but a higher recall.
+
+\section{Classification Rule}
+A record is classified as a match if its score is greater than or equal to the threshold \(\tau\).
+
+\section{Summary}
+This chapter has detailed the mathematical approach and scoring model used in the system.
+
+% ================================
+% Chapter 9
+% ================================
+\chapter{sML}
+
+% ================================
+% Chapter 10
+% ================================
+\chapter{Demonstration}
+
+In the demo, the following would be shown:
+\begin{itemize}
+    \item Identity matching in real time.
+    \item Family tree visualization from matched identities.
+    \item High-speed performance, even across large datasets.
+\end{itemize}
+
+(Demonstration screenshots to be added)
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/Search for Matches diagrams.png}
+  \caption{Demonstration: Display of ranked match results with similarity scores.}
+  \label{fig:demo-match-results}
+\end{figure}
+
+\paragraph{Note on the Database}
+The author was not provided with a realistic database for this project. Therefore, a synthetic dataset was generated, mirroring the structure of the government's database. A best effort was made to include realistic family relationships to ensure meaningful family tree visualizations.
+
+\begin{appendices}
+\chapter{Use Case Diagrams}
+\includepdf[pages=-]{figures/use_case_diagrams.pdf}
+
+\chapter{UML Diagrams}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/add user seq diagram.png}
+  \caption{Sequence Diagram for Adding a User.}
+  \label{fig:add-user-seq}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/family tree seq diagram.png}
+  \caption{Sequence Diagram for Family Tree Generation.}
+  \label{fig:family-tree-seq}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/view audit seq diagram.png}
+  \caption{Sequence Diagram for Viewing Audit Logs.}
+  \label{fig:view-audit-seq}
+\end{figure}
+
+\chapter{Code Listings}
+\section{Backend: matching.rs}
+\begin{lstlisting}[language=Rust, caption={Core matching logic from utils/matching.rs}]
+// src/utils/matching.rs
+
+use strsim::{jaro, levenshtein};
+use crate::utils::linked_list::VariationNode;
+use crate::utils::normalization::{normalize_arabic, remove_diacritics, standardize_prefixes};
+use crate::utils::phonetic::aramix_soundex;
+
+///    Compare two already normalized strings with plain Jaro + normalized Levenshtein, plus a capped 20% Soundex bonus.
+/// Soundex comparison uses its own normalization via aramix_soundex.
+pub fn score_pair_with_soundex(norm_s1: &str, norm_s2: &str) -> f64 {
+    // 1) Strings are assumed to be pre-normalized for Jaro/Levenshtein.
+    // 2) Compute plain Jaro (no prefix‐boost) and normalized Levenshtein
+    let j = jaro(norm_s1, norm_s2);
+    let lev = 1.0 - (levenshtein(norm_s1, norm_s2)
+        .min(norm_s1.len()) as f64
+        / norm_s1.len().max(1) as f64);
+
+    // 3) Combine Jaro+Lev into 80% of the score
+    let base_score = ((j + lev) / 2.0) * 0.8;
+
+    // 4) Add a flat 20% bonus if Soundex codes match.
+    // aramix_soundex performs its own internal normalization suitable for phonetic coding.
+    let bonus = if aramix_soundex(norm_s1) == aramix_soundex(norm_s2) {
+        0.2
+    } else {
+        0.0
+    };
+
+    // 5) Final score, capped at 1.0
+    (base_score + bonus).min(1.0)
+}
+
+/// Helper: average of phonetic match (0/1) and plain Jaro.
+/// Assumes input strings norm_a and norm_b are pre-normalized for Jaro.
+/// aramix_soundex handles its own normalization for the phonetic part.
+pub fn combo(norm_a: &str, norm_b: &str) -> f32 {
+    let p = (aramix_soundex(norm_a) == aramix_soundex(norm_b)) as u8 as f32;
+    let j = jaro(norm_a, norm_b) as f32;
+    (p + j) / 2.0
+}
+
+///    Return the best score against the base string and all its variations.
+/// norm_input is the pre-normalized input string from the request.
+/// norm_base is the pre-normalized base string from the IdentityNode.
+/// variations contain raw strings that need normalization before comparison.
+pub fn best_score_against_variations(
+    norm_input: &str, // Pre-normalized input string
+    norm_base: &str,  // Pre-normalized base string from IdentityNode
+    variations: &Option<Box<VariationNode>>,
+) -> f64 {
+    let mut best = score_pair_with_soundex(norm_input, norm_base);
+    let mut current_variation_node = variations;
+    while let Some(var_node) = current_variation_node {
+        // Normalize the raw variation string before comparing
+        let norm_variation = standardize_prefixes(&normalize_arabic(&remove_diacritics(&var_node.variation)));
+        let s = score_pair_with_soundex(norm_input, &norm_variation);
+        if s > best {
+            best = s;
+        }
+        current_variation_node = &var_node.next_variation;
+    }
+    best
+}
+
+///    Compute the weighted full‐record score.
+/// Assumes input_names and place1 are pre-normalized.
+/// Assumes target_names and place2 (from IdentityNode) are already normalized by the loader.
+pub fn calculate_full_score(
+    // These are pre-normalized strings from the input request
+    input_norm_names: (&str, &str, &str, &str, &str, &str),
+    // These are already normalized strings from the IdentityNode
+    target_norm_names: (&str, &str, &str, &str, &str, &str),
+    _variations: ( // Variations are handled by best_score_against_variations, not directly here
+                   &Option<Box<VariationNode>>, &Option<Box<VariationNode>>, &Option<Box<VariationNode>>,
+                   &Option<Box<VariationNode>>, &Option<Box<VariationNode>>, &Option<Box<VariationNode>>,
+    ),
+    dob1: Option<(u32, u32, u32)>,
+    dob2: Option<(u32, u32, u32)>,
+    // Pre-normalized place from input request
+    place1_norm: &str,
+    // Already normalized place from IdentityNode
+    place2_norm: &str,
+    _sex1: u8, // Sex doesn't require string normalization
+    _sex2: u8,
+) -> f64 {
+    let (in_fn_norm, in_ln_norm, in_fa_norm, in_gd_norm, _in_ml_norm, in_m_norm) = input_norm_names;
+    let (t_fn_norm,  t_ln_norm,  t_fa_norm,  t_gd_norm,  _lt_ml_norm,  t_m_norm ) = target_norm_names;
+
+    // Fields are now assumed to be pre-normalized where necessary.
+    // No more internal norm = |s: &str| ... calls for these inputs.
+
+    // Weighted scoring
+    let mut score = 0.0;
+    let mut total = 0.0;
+
+    // First name (35%) - uses combo, which expects normalized inputs
+    score += combo(in_fn_norm, t_fn_norm) as f64 * 0.35;
+    total += 0.35;
+
+    // Last name (30%) - uses combo
+    score += combo(in_ln_norm, t_ln_norm) as f64 * 0.30;
+    total += 0.30;
+
+    // Father name (10%) - uses jaro directly with normalized inputs
+    score += jaro(in_fa_norm, t_fa_norm) * 0.10;
+    total += 0.10;
+
+    // Grandfather name (5%) - uses jaro
+    score += jaro(in_gd_norm, t_gd_norm) * 0.05;
+    total += 0.05;
+
+    // Mother name (5%) - uses jaro
+    score += jaro(in_m_norm, t_m_norm) * 0.05;
+    total += 0.05;
+
+    // DOB exact match (10%)
+    if let (Some(d1), Some(d2)) = (dob1, dob2) {
+        score += (d1 == d2) as u8 as f64 * 0.10;
+    }
+    total += 0.10;
+
+    // Place of birth (5%) - uses jaro with normalized inputs
+    score += jaro(place1_norm, place2_norm) * 0.05;
+    total += 0.05;
+
+    score / total
+}
+
+/// Pre‐filter candidates by sex, decade window, and phonetic last‐name.
+/// input_norm_ln is the pre-normalized last name from the request.
+/// candidate_norm_ln is the pre-normalized last name from the IdentityNode.
+pub fn should_consider_candidate(
+    input_details: &( // Contains pre-normalized last name
+                      &str, &str, &str, &str, &str, &str, // other names not used by this function directly for filtering
+                      Option<(u32, u32, u32)>, u8, &str // dob, sex, place (place not used for filtering)
+    ),
+    candidate_details: &( // Contains pre-normalized last name
+                          &str, &str, &str, &str, &str, &str, // other names
+                          Option<(u32, u32, u32)>, u8, &str // dob, sex, place
+    ),
+) -> bool {
+    // Parameter names changed to reflect they are expected to be normalized for string fields
+    let (_, input_norm_ln, _, _, _, _, in_dob, in_sex, _) = input_details;
+    let (_, candidate_norm_ln, _, _, _, _, cand_dob, cand_sex, _) = candidate_details;
+
+    // 1) Sex must match
+    if in_sex != cand_sex {
+        return false
