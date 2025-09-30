@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper]{report}
+
+\input{preamble.tex}
+
+% \includeonly{chapters/chapter1} % Example: Uncomment to compile only Chapter 1
+
+\begin{document}
+
+% --- Cover Pages ---
+% NOTE: The following files were not found. I have commented them out.
+% Please ensure they are present in the 'report/' directory and uncomment the lines to include them.
+% \newgeometry{margin=0pt}
+% \includepdf[pages=-]{Page Garde Rapport Stage(Ang)_page-0001.jpg}
+% \restoregeometry
+% \clearpage
+% \newgeometry{margin=0pt}
+% \includepdf[pages=-]{Page Garde Rapport Stage(Ang)_page-0002.jpg}
+% \restoregeometry
+% \clearpage
+% \newgeometry{margin=0pt}
+% \includepdf[pages=-]{Page Garde Rapport Stage(Ang)_page-0003.jpg}
+% \restoregeometry
+% \clearpage
+
+% --- Front Matter ---
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+% --- Main Matter ---
+\pagenumbering{arabic}
+\include{chapters/introduction}
+\include{chapters/chapter1}
+\include{chapters/chapter2}
+\include{chapters/chapter3}
+\include{chapters/chapter4}
+\include{chapters/chapter5}
+\include{chapters/chapter6}
+\include{chapters/chapter7}
+\include{chapters/chapter8}
+\include{chapters/chapter10}
+\include{chapters/conclusion}
+
+% --- Back Matter ---
+\begin{appendices}
+\include{chapters/appendixA}
+\include{chapters/appendixB}
+\include{chapters/appendixC}
+\end{appendices}
+
+\end{document}

@@ -1,0 +1,72 @@
+% ================================
+% Chapter 3
+% ================================
+\chapter{Analysis \& Requirements}
+
+\section{Introduction}
+Following the project's contextualization, this chapter transitions from high-level objectives to a detailed analysis of the system's required capabilities. The goal is to translate the needs of the stakeholders—government agents and administrators—into a concrete set of functional and non-functional requirements. This process begins with a formal modeling of the system's interactions through use cases, which provide a clear picture of who will use the system and for what purpose. By defining these interactions, we can systematically derive the specific features, constraints, and quality attributes that the final product must possess to be considered successful. This chapter serves as the blueprint for the subsequent design and implementation phases, ensuring that the developed solution is precisely aligned with the problem it aims to solve.
+
+\section{Use–Case Model}
+The system has two main actors: government agents and administrators.
+Agents can search for matches and visualize family trees. Administrators manage users and view audit logs.
+All actions are tied to credential checks, ensuring only authorized users can access the system.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{figures/use case diagram.png}
+    \caption{Use case Diagram}
+    \label{fig:use-case-diagram}
+\end{figure}
+
+\subsection{Main Use Cases}
+The main use cases of the system are:
+\begin{itemize}
+    \item \textbf{UC-01: Search for Matches:} An agent enters a citizen's details to find potential matches in the national registry.
+    \item \textbf{UC-02: Reconstruct Identity Profile:} An agent uses partial information (e.g., name and parents' names) to reconstruct and verify an identity profile for a citizen with lost or missing documents.
+    \item \textbf{UC-03: Visualize Family Tree:} An agent visualizes a citizen's family tree to understand familial relationships.
+\end{itemize}
+
+\subsection{Actors}
+Two main actors interact with the system:
+\begin{itemize}
+    \item \textbf{Government agent:} verifies identities and explores family trees.
+    \item \textbf{Administrator:} manages the system and oversees operations.
+\end{itemize}
+
+\subsection{ Search for Matches)}
+In this flow, the Government Agent starts by entering the individual information through the user interface form and submitting the request, which forwards the authentication token to the Authentication Service. Once the credentials are validated and confirmed, the Matching Service is called to perform the search. The Matching Service queries the database to fetch all identities that match the individual's info, retrieves the data, and processes it using the matching algorithm.
+
+After processing, the Matching Service returns a list of potential matches, which are then sent to the User Interface. Finally, the Government Agent sees the matches displayed on their screen.
+
+\section{Requirements}
+The system requirements are divided into two categories: functional and non-functional.
+
+\subsection{Functional Requirements}
+On the functional side, the system must support:
+\begin{itemize}
+    \item User authentication and authorization.
+    \item The management of identities.
+    \item A matching algorithm capable of delivering reliable accuracy scores.
+    \item Family tree visualization.
+    \item Audit logs of user actions for accountability.
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+On the non-functional side, the solution is required to achieve:
+\begin{itemize}
+    \item High accuracy and precision (using a multi-stage matching algorithm).
+    \item Scalability to handle millions of records.
+    \item Strong security (using JWT Token for authentication and authorization).
+    \item A reliable and usable user experience (with a user friendly UI that is easy to use).
+\end{itemize}
+
+\section{Validation Rules (selected)}
+The following validation rules are applied to the input data:
+\begin{itemize}
+    \item The first and last names are required.
+    \item The date of birth must be a valid date.
+    \item The sex must be either male or female.
+\end{itemize}
+
+
+\section{Conclusion}
+By detailing the use cases and deriving a clear set of functional and non-functional requirements, this chapter has established a solid foundation for the subsequent phases of the project. The requirements outlined here, from user authentication and matching accuracy to security and scalability, serve as a definitive checklist against which the final system will be measured. With this analytical groundwork in place, we have a clear and unambiguous understanding of what needs to be built. The next chapter will build directly upon these requirements to propose a technical design and architecture capable of meeting these specifications.

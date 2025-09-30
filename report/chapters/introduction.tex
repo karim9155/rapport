@@ -1,0 +1,11 @@
+% ================================
+% General Introduction
+% ================================
+\chapter*{General Introduction}
+\addcontentsline{toc}{chapter}{General Introduction}
+
+This thesis, undertaken for the *Ministère de l'Intérieur*, addresses these challenges by designing and implementing an intelligent system for the robust matching of Arabic biographical records. We propose a hybrid pipeline that combines rule-based text normalization to unify orthographic variants, a custom phonetic algorithm called Aramix Soundex to account for similarities in pronunciation, and weighted fuzzy string matching using Levenshtein and Jaro-Winkler distances to accurately rank potential matches.
+
+This high-performance engine, built in Rust and served via a REST API, powers an intuitive Angular web application that empowers government agents to find individuals quickly and reliably. Furthermore, the system leverages a Neo4j graph database to model family trees, allowing for the reconstruction of familial relationships from identity records. The visualization of these trees is handled by an automated n8n workflow, which processes the graph data, uses a generative AI to create a diagram, and delivers it to the user.
+
+By bridging this critical gap, our work aims not only to solve a technical problem but also to restore dignity and access for countless individuals. The following chapters will detail the design, implementation, and evaluation of this solution, demonstrating a practical path toward a more inclusive and efficient digital state.

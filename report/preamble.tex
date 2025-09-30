@@ -1,0 +1,33 @@
+% --- Preamble ---
+%\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\setmainlanguage{english}
+\setotherlanguage{arabic}
+
+\setmainfont{Times New Roman} % Or any other suitable font for English
+\newfontfamily\arabicfont[Script=Arabic]{Amiri}
+
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+
+\usepackage{graphicx}   % needed for \includegraphics
+\usepackage{pdfpages}   % needed for \includepdf
+\usepackage{caption}
+\captionsetup{style=default}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink]{cleveref}
+\usepackage{appendix}
+\usepackage{listings}
+
+\lstset{
+    basicstyle=\small\ttfamily,
+    breaklines=true,
+    frame=single,
+    showstringspaces=false,
+    language=rust
+}
+
+% path to your images folder
+\graphicspath{{figures/}}

@@ -1,0 +1,49 @@
+% ================================
+% Chapter 8
+% ================================
+\chapter{Mathematical Approach and Scoring Model}
+
+\section{Introduction}
+At the heart of the identity matching engine is a quantitative scoring model designed to translate linguistic similarity into a numerical score. This chapter moves beyond the high-level description of the algorithms and delves into the precise mathematical formulas and models that govern the matching process. We will dissect the score aggregation formula, detailing the weights assigned to each biographical field and the rationale behind them. Furthermore, this chapter will provide the formal definitions for the Jaro and Levenshtein similarity metrics, explain the mechanics of the custom Aramix Soundex algorithm, and discuss the statistical assumptions that underpin the selection of an appropriate matching threshold. By understanding these mathematical details, we gain a deeper insight into how the system achieves its accuracy and how it can be fine-tuned for different operational contexts.
+
+\section{Score Aggregation Formula}
+The final match score is a weighted sum of the scores of individual fields. The weights are as follows: First Name (35\%), Last Name (30\%), Father's Name (10\%), Grandfather's Name (5\%), Mother's Name (5\%), Date of Birth (10\%), and Place of Birth (5\%). The total score is given by:
+\[
+S_{total} = \frac{\sum_{i=1}^{N} w_i S_i}{\sum_{i=1}^{N} w_i}
+\]
+where $w_i$ is the weight of field $i$, and $S_i$ is the score of field $i$.
+
+\section{Phonetic Encoding with Aramix Soundex}
+The Aramix Soundex algorithm is a custom phonetic encoding algorithm that is specifically designed for Arabic names. It generates a 4-character code that represents the phonetic pronunciation of a name.
+
+\section{Fuzzy Similarity Metrics}
+\subsection{Jaro Similarity}
+The Jaro similarity, $jaro(s_1, s_2)$, of two strings $s_1$ and $s_2$ is defined as:
+\[
+jaro =
+\begin{cases}
+    0 & \text{if } m = 0 \\
+    \frac{1}{3} \left( \frac{m}{|s_1|} + \frac{m}{|s_2|} + \frac{m - t}{m} \right) & \text{otherwise}
+\end{cases}
+\]
+where:
+\begin{itemize}
+    \item $|s_1|$ and $|s_2|$ are the lengths of the strings $s_1$ and $s_2$.
+    \item $m$ is the number of matching characters.
+    \item $t$ is half the number of transpositions.
+\end{itemize}
+
+\subsection{Levenshtein Distance}
+The Levenshtein distance, $lev(s_1, s_2)$, is the minimum number of single-character edits (insertions, deletions or substitutions) required to change one string into the other. The normalized Levenshtein similarity is calculated as:
+\[
+lev_{sim}(s_1, s_2) = 1 - \frac{lev(s_1, s_2)}{\max(|s_1|, |s_2|)}
+\]
+
+\section{Score Distribution and Normal Law Assumption}
+The distribution of scores is assumed to follow a normal law. This assumption is used to determine the threshold for matching.
+
+\section{Threshold \(\tau\) Selection}
+The threshold \(\tau\) is selected based on the desired precision and recall rates. A higher threshold will result in a higher precision but a lower recall, while a lower threshold will result in a lower precision but a higher recall.
+
+\section{Conclusion}
+This chapter has provided a detailed mathematical exposition of the scoring and matching engine. By defining the precise formulas for score aggregation, fuzzy similarity, and phonetic encoding, we have illuminated the quantitative logic that drives the system's decision-making process. This rigorous, model-based approach ensures that the matching process is not a "black box," but rather a transparent and configurable system whose accuracy is grounded in established mathematical principles. Understanding this model is key to appreciating the system's ability to deliver reliable and nuanced results. The following chapters will shift from the theoretical and technical to the practical, demonstrating the system in action.

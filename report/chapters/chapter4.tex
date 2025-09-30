@@ -1,0 +1,91 @@
+% ================================
+% Chapter 4
+% ================================
+\chapter{State of the Art, Foundations, and Matching Algorithm}
+
+\section{Introduction}
+This chapter provides a thorough exploration of the academic and technical foundations underpinning the field of identity matching, with a specialized focus on the complex domain of Arabic names. Effective identity resolution is a cornerstone of modern data management, but the unique linguistic properties of the Arabic language introduce significant challenges that standard algorithms often fail to address. This chapter will dissect these challenges, survey the existing state-of-the-art solutions, and detail the specific algorithms and techniques—including string similarity metrics, phonetic encoding, and text normalization—that form the theoretical basis of our proposed system. By understanding these foundational concepts, we can better appreciate the design and innovation of the matching engine at the core of this project.
+
+\section{Arabic Identity Matching Challenges}
+The primary difficulties in matching Arabic biographical records stem from the language's inherent flexibility and the lack of standardized data entry practices. These challenges can be categorized as follows:
+\begin{itemize}
+    \item \textbf{Orthographic Variations:} Arabic script includes multiple characters that are often used interchangeably or inconsistently. For instance, the Hamza (ء) can be written on different carriers (\textarabic{أ، إ، ؤ، ئ}) or omitted entirely. Similarly, the letters \textarabic{ة} (ta-marbuta) and \textarabic{ه} (ha) are frequently swapped at the end of words, as are \textarabic{ى} (alef-maqsura) and \textarabic{ي} (ya).
+    \item \textbf{Phonetic Ambiguity:} Many Arabic letters share similar pronunciations, leading to common spelling errors during transcription. For example, the sounds for \textarabic{س} (sin) and \textarabic{ص} (sad) can be confused, as can \textarabic{ذ} (dhal), \textarabic{ز} (zay), and \textarabic{ظ} (dha). A robust matching system must account for these phonetic similarities.
+    \item \textbf{Data Entry Inconsistencies:} Biographical records are often plagued by human error and a lack of uniform standards. This includes the inconsistent use of diacritics (vowels), the inclusion or omission of prefixes like "\textarabic{الـ}" (the), and variations in how family names are recorded (e.g., "\textarabic{بن علي}" vs. "\textarabic{ابن علي}").
+\end{itemize}
+These challenges necessitate a multi-faceted approach that goes beyond simple string comparison, combining normalization, phonetic analysis, and sophisticated similarity scoring.
+
+\section{String Similarity Algorithms}
+To quantify the similarity between two names, our system employs well-established string similarity algorithms. Rather than relying on a single metric, we use a combination to create a more nuanced and accurate score.
+\begin{itemize}
+    \item \textbf{Jaro-Winkler Distance:} This algorithm is particularly effective for short strings like names. It measures similarity based on the number of matching characters and the number of transpositions (characters that are out of order). The Jaro-Winkler variant adds a prefix bonus, giving higher scores to strings that match from the beginning. This is useful for names where the initial letters are often correct.
+    \item \textbf{Levenshtein Distance:} Also known as "edit distance," this metric calculates the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one string into the other. It is excellent at catching minor spelling mistakes or data entry errors. For example, the Levenshtein distance between "\textarabic{محمد}" and "\textarabic{محمود}" is small, reflecting their close similarity.
+\end{itemize}
+By blending the results of these two algorithms, our system can tolerate a wide range of variations while maintaining high precision.
+
+\section{Phonetic Encoding (Aramix Soundex)}
+Since simple string comparison cannot account for names that sound alike but are spelled differently, we developed a custom phonetic encoding algorithm called \textbf{Aramix Soundex}. Standard phonetic algorithms like the original Soundex were designed for English and perform poorly on Arabic due to its different phonetic structure.
+Aramix Soundex is tailored to the Arabic alphabet, grouping letters with similar sounds into equivalence classes. For example, it would map the phonetically similar letters \textarabic{ت} and \textarabic{ط} to the same code. By converting names into a phonetic "fingerprint," the system can identify potential matches even when the spellings are significantly different, such as matching "\textarabic{ضياء}" with "\textarabic{ظياء}".
+
+\section{Text Normalization Techniques}
+Before any comparison occurs, all input strings undergo a rigorous normalization process to eliminate common inconsistencies. This is a critical pre-processing step that standardizes the text to ensure that comparisons are made on a level playing field. Key normalization rules include:
+\begin{itemize}
+    \item \textbf{Hamza Unification:} All forms of Hamza (\textarabic{أ، إ، ؤ، ئ}) are standardized to a single character, typically the bare Alef (\textarabic{ا}). For example, the name "\textarabic{إسماعيل}" becomes "\textarabic{اسماعيل}".
+    \item \textbf{Final Letter Standardization:} The characters \textarabic{ة} (ta-marbuta) and \textarabic{ى} (alef-maqsura) are normalized to their plain counterparts, \textarabic{ه} and \textarabic{ي} respectively. For example, "\textarabic{فاطمة}" becomes "\textarabic{فاطمه}" and "\textarabic{موسى}" becomes "\textarabic{موسي}".
+    \item \textbf{Diacritic Removal:} All diacritical marks (e.g., fatha, kasra, damma: \textarabic{َ ِ ُ}) are stripped from the text, as they are rarely used consistently in official records. The name "\textarabic{مُحَمَّد}" is simplified to "\textarabic{محمد}".
+    \item \textbf{Prefix Standardization:} Common prefixes like "\textarabic{الـ}", "\textarabic{بن}", and "\textarabic{ابن}" are handled by either removing them or standardizing them to a single form to prevent them from skewing similarity scores. For example, "\textarabic{الرحمان}" becomes "\textarabic{رحمان}".
+\end{itemize}
+These normalization steps are essential for achieving high accuracy and are applied universally before the phonetic and similarity algorithms are executed.
+
+\section{Matching Algorithm Flow}
+
+\subsection{Name Matching Process}
+Our multi-stage matching algorithm ensures both performance and accuracy.
+\begin{itemize}
+    \item \textbf{Stage 1: Normalization} (clean diacritics, unify Arabic characters, remove prefixes).
+    \item \textbf{Stage 2: Filtering} (by generation: decade of birth).
+    \item \textbf{Stage 3: Parallel Scoring} using Rust’s Rayon library for multi-core speed.
+    \item \textbf{Stage 4: Advanced Scoring} blending Jaro-Winkler, Levenshtein, and Aramix Soundex with weighted scoring.
+\end{itemize}
+
+\subsubsection*{Speaker notes (concise):}
+\begin{quote}
+1- “The process begins with normalization — cleaning names, removing diacritics, and standardizing prefixes. \\
+2 - then we divide the individual by generations according to the year of birth \\
+3 -Then candidates are pre-filtered by gender, DOB , and last-name phonetics. \\
+4- Next, each candidate is scored using Jaro-Winkler(), Levenshtein, and Soundex, with weighted fields and bonuses for strong matches. \\
+5 -Finally, results are sorted, filtered by a threshold of 75, and the top three matches are returned.”
+This hybrid approach is the core innovation of Tunisian\_Name
+\end{quote}
+
+\subsubsection*{Algorithm Definitions}
+\begin{description}
+    \item[Jaro-Winkler:] Measures similarity between two strings.
+    \item[Levenshtein (Edit Distance):] Measures differences between two strings.
+    \item[Soundex:] Converts words into a phonetic code so names that sound alike but are spelled differently map to the same code.
+\end{description}
+
+\subsection{Overview \& Mapping to FRs}
+The matching algorithm is designed to meet the functional requirement of real-time matching. It uses a combination of pre-filtering and parallel scoring to achieve high performance.
+
+\subsection{Pseudocode}
+\begin{lstlisting}[language=]
+function match_identity(input_identity)
+  candidates = pre_filter_candidates(input_identity)
+  results = score_candidates_in_parallel(candidates, input_identity)
+  sort_results_by_score(results)
+  return top_results(results)
+end function
+\end{lstlisting}
+
+\subsection{Performance Optimizations}
+To ensure the system remains responsive even with a large database, several key performance optimizations were implemented.
+
+\subsubsection{Generational Searching}
+A critical optimization is the use of "generational searching." Instead of loading the entire multi-million-record database into memory for every request, the system first analyzes the date of birth from the user's input to determine a "generation key" (i.e., the decade of birth). It then queries the PostgreSQL database to load only the records belonging to that specific generation. This dramatically reduces the amount of data that needs to be processed, leading to a significant decrease in memory consumption and initial search latency.
+
+\subsubsection{Multithreaded Scoring}
+After the initial pool of candidates is loaded and pre-filtered, the most computationally intensive task is scoring each candidate against the input. To accelerate this process, the system leverages multithreading through the \textbf{Rayon} library in Rust. Rayon provides data-parallelism capabilities, allowing the system to process the list of candidates concurrently across multiple CPU cores. By simply changing a standard iterator (.iter()) to a parallel one (.par_iter()), the scoring workload is automatically distributed among available threads. This parallel execution model drastically reduces the time required to score hundreds or thousands of candidates, ensuring that the API can deliver results in real-time, even under heavy load.
+
+\section{Conclusion}
+This chapter has laid the theoretical groundwork for our solution by examining the inherent complexities of Arabic identity matching and surveying the established techniques for addressing them. We have seen that a successful system cannot rely on a single algorithm but must instead employ a sophisticated, multi-stage approach. By combining rigorous text normalization, custom phonetic encoding with Aramix Soundex, and a hybrid scoring model using both Jaro-Winkler and Levenshtein distances, we can overcome the challenges of orthographic and phonetic variation. The detailed algorithm flow presented herein provides a clear blueprint for a process that is not only accurate but also highly performant. With this strong theoretical and algorithmic foundation established, the following chapter will translate these concepts into a concrete system architecture and design.

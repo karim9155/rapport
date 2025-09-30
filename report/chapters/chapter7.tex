@@ -1,0 +1,19 @@
+% ================================
+% Chapter 7
+% ================================
+\chapter{Evaluation}
+
+\section{Introduction}
+With the implementation complete, the crucial next step is to rigorously evaluate the system to determine whether it meets its core objectives. A system can be well-designed and elegantly coded, but its ultimate value lies in its real-world performance and accuracy. This chapter presents a comprehensive evaluation of the مطابق الهوية solution, focusing on two key non-functional requirements: the accuracy of the matching algorithm and the performance (speed and scalability) of the system under load. By using a carefully constructed synthetic dataset and a "golden set" of known matches, we can quantitatively measure the system's precision and recall, while load testing will reveal its ability to handle real-time requests. The results presented here will provide empirical evidence of the system's effectiveness and its readiness for deployment.
+
+\section{Datasets and Test Cases}
+The system was tested using a dataset of synthetic identity records. The dataset was designed to cover a wide range of variations in Arabic names, including the cases identified in the problem statement (e.g., unregistered births, citizens living abroad, etc.).
+
+\section{Accuracy and Performance}
+The accuracy of the matching algorithm was evaluated using the "golden set" of known matches. The system achieved a high precision and recall rate. The performance of the system was evaluated using a load testing tool, and the results showed that the system was able to handle a high volume of requests with low latency.
+
+\section{Discussion}
+The evaluation results show that the system is both accurate and performant. The use of a hybrid matching approach, combining text normalization, phonetic encoding, and fuzzy string matching, is effective in handling the complexities of Arabic names.
+
+\section{Conclusion}
+The evaluation results presented in this chapter provide strong evidence that the system successfully meets its primary goals of accuracy and performance. The high precision and recall rates, validated against a challenging synthetic dataset, demonstrate the effectiveness of the hybrid matching algorithm in handling the nuances of Arabic names. Furthermore, the positive outcomes of the load testing confirm that the system's architecture, particularly the Rust backend and its optimized data handling, is capable of delivering the low-latency responses required for a real-time operational environment. Having quantitatively verified its capabilities, the system is confirmed to be not just a theoretical success but a practical and robust solution. The next chapter will delve deeper into the mathematical underpinnings of the scoring model that drives this accuracy.

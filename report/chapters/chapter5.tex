@@ -1,0 +1,84 @@
+% ================================
+% Chapter 5
+% ================================
+\chapter{System Design}
+
+\section{Introduction}
+Building upon the requirements and algorithmic foundations established in the previous chapters, this chapter presents the concrete technical design of the مطابق الهوية system. The focus here is on translating the "what" (the requirements) into the "how" (the implementation blueprint). We will detail the system's architecture at multiple levels, from a high-level logical view that illustrates the separation of concerns to a physical deployment model that shows how the components interact in a containerized environment. This chapter will also define the core data models, including the database schema and the in-memory structures used for efficient processing. By providing a comprehensive overview of the system's design, we create a clear and actionable guide for the implementation phase, ensuring that all components are built in a cohesive, scalable, and maintainable manner.
+
+
+
+\subsubsection{Logical Architecture}
+
+
+\begin{quote}
+“This diagram shows the logical architecture in detail.
+The frontend Angular app communicates with the Axum backend, which manages authentication with JWT and logs usage.
+The backend runs the matching engine with scoring logic, retrieving identity data from PostgreSQL.
+When a match is confirmed, the frontend also requests related data from Neo4j, which returns the family tree for visualization.”
+\end{quote}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{figures/archi_loquique.png}
+  \caption{Logical Architecture Diagram.}
+  \label{fig:logical-architecture}
+\end{figure}
+
+\subsubsection{Deployment Diagram}
+\begin{quote}
+“The agent uses a web browser to access the system over HTTPS.
+Requests go to a Docker-based environment running the Rust backend, which connects to PostgreSQL for data and to the n8n service for workflows.
+n8n can also call external APIs like Google Gemini for advanced processing.”
+\end{quote}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/deployment_diagram.png}
+  \caption{Deployment Diagram.}
+  \label{fig:deployment-diagram}
+\end{figure}
+
+
+
+
+
+\section{Data Model }
+
+
+\subsubsection{In-Memory Data Structures: Linked Lists}
+To efficiently manage and consolidate identity records in memory, the system employs custom, singly-linked list structures defined in Rust. This approach is particularly effective for handling the dataset's numerous name variations and for merging duplicate records dynamically as data is loaded. The use of Box<T>, Rust's smart pointer for heap allocation, is idiomatic for these recursive, pointer-like structures.
+
+Two primary structures are used:
+\begin{itemize}
+    \item \textbf{VariationNode:} A simple linked list node where each node stores a single string variation of a name (e.g., "احمد", "أحمد "). The next_variation field is of type Option<Box<VariationNode>>, pointing to the next variation or None.
+    \item \textbf{IdentityNode:} This structure represents a unique individual and holds their complete, normalized biographical data. Each name field within an IdentityNode can point to the head of a VariationNode linked list. Furthermore, the `IdentityNode`s themselves are organized into a larger linked list via the next_identity: Option<Box<IdentityNode>> field.
+\end{itemize}
+
+This design allows the system to build a clean, consolidated dictionary of identities in memory. When a new record is loaded from the database, the system traverses the IdentityNode list to find a match. If a matching identity already exists, the new name variations are simply inserted into the corresponding VariationNode lists, effectively merging the records without creating duplicates. This avoids redundant data and simplifies the subsequent matching process.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/Search for Matches diagrams.png}
+  \caption{Sequence Diagram for the matching process.}
+  \label{fig:sequence-diagram}
+\end{figure}
+
+\section{Physical Architecture}
+Physically, the system is fully containerized with Docker and orchestrated via Docker Compose.
+ The main services are:
+\begin{itemize}
+    \item Angular frontend (served by Nginx).
+    \item Rust backend service.
+    \item PostgreSQL database.
+    \item Neo4j as an external graph service.
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/archi_physique.png}
+  \caption{Physical Architecture Diagram.}
+  \label{fig:physical-architecture}
+\end{figure}
+
+\section{Conclusion}
+This chapter has provided a detailed blueprint of the system's architecture and data structures. By defining the logical and physical architectures, we have established a clear separation of concerns and a scalable deployment strategy. The data model, with its relational and graph-based components, is tailored to handle both structured biographical data and complex family relationships efficiently. Furthermore, the design of the in-memory linked-list structures provides a clear path for performant data handling within the Rust backend. With this comprehensive design in place, we are now fully prepared to move from planning to execution. The next chapter will detail the implementation of this design, sprint by sprint, showing how these architectural concepts were translated into functional code.
