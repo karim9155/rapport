@@ -1,7 +1,7 @@
 \documentclass[12pt,a4paper]{report}
 
 % --- Preamble ---
-\usepackage{fontspec}
+%\usepackage{fontspec}
 \usepackage{polyglossia}
 
 \setmainlanguage{english}
@@ -165,7 +165,8 @@ Inetum maintains strong alliances with the world's leading software and hardware
 \end{figure}
 
 \section{Conclusion}
-This chapter introduced the host organization, Inetum, and its Tunisian branch, providing an overview of its global presence, values, and clients.
+This chapter has provided a detailed introduction to the host organization, Inetum, a global leader in IT services, and its strategically important Tunisian branch. By presenting an overview of its worldwide operations, core values, key sectors of activity, and strategic partnerships, we have established the corporate context in which this project was developed. Understanding the professional environment and the high standards of a company like Inetum is crucial, as it sets the stage for the quality and ambition expected in the project that follows. This foundational knowledge of the organization provides a backdrop for the technical challenges and solutions that will be discussed in the subsequent chapters.
+
 
 % ================================
 % Chapter 2
@@ -233,7 +234,7 @@ The main stakeholders of the project are the users who need to match identities 
 
 \section{Proposed Solution}
 
-\subsection{Proposed Solution --- Tunisian\_NamesML}
+\subsection{Proposed Solution ---مطابق الهوية}
 The proposed solution is a modern, hybrid system that addresses the core challenges of Arabic name matching.
 Hybrid identity matching combines text normalization to unify orthographic variants, a custom phonetic algorithm (Aramix Soundex), and fuzzy matching using Levenshtein and Jaro-Winkler.
 Visualization and automation are achieved through n8n for process orchestration, Gemini AI for data parsing and simplification, and Python for automated diagram generation.
@@ -300,7 +301,7 @@ The choice of technologies was driven by the project's requirements for performa
     \item \textbf{n8n \includegraphics[height=1.2em]{figures/n8n.png}:} A low-code workflow automation tool used to orchestrate the family tree visualization process. It acts as the glue between the backend, the AI model, the Python script, and Google Drive, allowing for complex process automation without cluttering the main backend codebase.
     \item \textbf{Google Gemini API:} A powerful generative AI model used within the n8n workflow to intelligently parse the complex JSON output from Neo4j and transform it into a simplified, structured format suitable for the diagram generation script.
     \item \textbf{Python:} Used for a dedicated microservice whose sole responsibility is to take the simplified JSON data and generate a family tree diagram. This separation of concerns keeps the main backend focused on its core tasks.
-    \item \textbf{Google Drive:} Serves as the storage solution for the final generated family tree images, providing easy and secure access.
+   
     \item \textbf{Docker:} Used for containerizing the entire application stack (backend, frontend, databases), ensuring consistent development and deployment environments.
 \end{itemize}
 
@@ -397,31 +398,31 @@ The final phase was dedicated to testing, improving, and preparing the system fo
 The Product Backlog is a dynamic, ordered list of what is needed to improve the product. The following table represents a sample of the initial backlog created for this project, detailing the key epics, user stories, and tasks.
 
 \begin{center}
-\begin{tabular}{|p{3cm}|l|l|p{6cm}|}
+\begin{tabular}{|p{3cm}|l|p{6cm}|}
 \hline
-\textbf{Epic} & \textbf{ID} & \textbf{Type} & \textbf{Description} \\
-\hline
-\hline
-Admin Management & UM-1 & User Story & As an Administrator, I want to create, edit, and delete user accounts so that I can manage access to the system. \\
-\hline
-User Management & UM-2 & User Story & As a User, I want to be able to log in and log out of the system to securely access its features. \\
-\hline
-Admin Management & UM-3 & User Story & As an Administrator, I want an audit dashboard to review user actions and system events for security and accountability purposes. \\
+\textbf{Epic} & \textbf{Type} & \textbf{Description} \\
 \hline
 \hline
-Core Matching Functionality & CMF-1 & User Story & As a Government Agent, I want to input a citizen's biographical details into a form to search for potential matches. \\
+Admin Management & User Story & As an Administrator, I want to create, edit, and delete user accounts so that I can manage access to the system. \\
+\hline
+User Management & User Story & As a User, I want to be able to log in and log out of the system to securely access its features. \\
+\hline
+Admin Management & User Story & As an Administrator, I want an audit dashboard to review user actions and system events for security and accountability purposes. \\
 \hline
 \hline
-Family Tree Visualization & FTV-1 & User Story & As a Government Agent, I want to click on a matched record to view the individual's family tree. \\
-\hline
-Family Tree Visualization & FTV-3 & Task & Create the n8n workflow to query Neo4j, generate a family tree image via the OpenAI API, and return it to the frontend. \\
+Core Matching Functionality & User Story & As a Government Agent, I want to input a citizen's biographical details into a form to search for potential matches. \\
 \hline
 \hline
-System Infrastructure \& Deployment & SI D-1 & Task & Set up the PostgreSQL database and create the necessary tables. \\
+Family Tree Visualization & User Story & As a Government Agent, I want to click on a matched record to view the individual's family tree. \\
 \hline
-System Infrastructure \& Deployment & SID-2 & Task & Dockerize the Rust backend and Angular frontend applications. \\
+Family Tree Visualization & Task & Create the n8n workflow to query Neo4j, generate a family tree image via the OpenAI API, and return it to the frontend. \\
 \hline
-System Infrastructure \& Deployment & SID-3 & Task & Create a docker-compose.yml file for easy local deployment. \\
+\hline
+System Infrastructure \& Deployment & Task & Set up the PostgreSQL database and create the necessary tables. \\
+\hline
+System Infrastructure \& Deployment & Task & Dockerize the Rust backend and Angular frontend applications. \\
+\hline
+System Infrastructure \& Deployment & Task & Create a docker-compose.yml file for easy local deployment. \\
 \hline
 \end{tabular}
 \end{center}
@@ -444,7 +445,7 @@ This chapter has provided a comprehensive presentation of the project, from its 
 \chapter{Analysis \& Requirements}
 
 \section{Introduction}
-This chapter details the functional and non-functional requirements of the system, based on an analysis of the use cases.
+Following the project's contextualization, this chapter transitions from high-level objectives to a detailed analysis of the system's required capabilities. The goal is to translate the needs of the stakeholders—government agents and administrators—into a concrete set of functional and non-functional requirements. This process begins with a formal modeling of the system's interactions through use cases, which provide a clear picture of who will use the system and for what purpose. By defining these interactions, we can systematically derive the specific features, constraints, and quality attributes that the final product must possess to be considered successful. This chapter serves as the blueprint for the subsequent design and implementation phases, ensuring that the developed solution is precisely aligned with the problem it aims to solve.
 
 \section{Use–Case Model}
 The system has two main actors: government agents and administrators.
@@ -472,7 +473,7 @@ Two main actors interact with the system:
     \item \textbf{Administrator:} manages the system and oversees operations.
 \end{itemize}
 
-\subsection{Use Case Flow (UC-01 Search for Matches)}
+\subsection{ Search for Matches)}
 In this flow, the Government Agent starts by entering the individual information through the user interface form and submitting the request, which forwards the authentication token to the Authentication Service. Once the credentials are validated and confirmed, the Matching Service is called to perform the search. The Matching Service queries the database to fetch all identities that match the individual's info, retrieves the data, and processes it using the matching algorithm.
 
 After processing, the Matching Service returns a list of potential matches, which are then sent to the User Interface. Finally, the Government Agent sees the matches displayed on their screen.
@@ -509,115 +510,46 @@ The following validation rules are applied to the input data:
 
 
 \section{Conclusion}
-This chapter has defined the requirements for the system, which will guide the design and implementation process.
+By detailing the use cases and deriving a clear set of functional and non-functional requirements, this chapter has established a solid foundation for the subsequent phases of the project. The requirements outlined here, from user authentication and matching accuracy to security and scalability, serve as a definitive checklist against which the final system will be measured. With this analytical groundwork in place, we have a clear and unambiguous understanding of what needs to be built. The next chapter will build directly upon these requirements to propose a technical design and architecture capable of meeting these specifications.
 
 % ================================
 % Chapter 4
 % ================================
-\chapter{State of the Art \& Foundations}
+\chapter{State of the Art, Foundations, and Matching Algorithm}
 
 \section{Introduction}
-This chapter explores the existing landscape of identity matching systems, with a focus on the unique challenges posed by Arabic names. We will review current solutions, analyze their limitations, and provide an overview of our proposed approach.
+This chapter provides a thorough exploration of the academic and technical foundations underpinning the field of identity matching, with a specialized focus on the complex domain of Arabic names. Effective identity resolution is a cornerstone of modern data management, but the unique linguistic properties of the Arabic language introduce significant challenges that standard algorithms often fail to address. This chapter will dissect these challenges, survey the existing state-of-the-art solutions, and detail the specific algorithms and techniques—including string similarity metrics, phonetic encoding, and text normalization—that form the theoretical basis of our proposed system. By understanding these foundational concepts, we can better appreciate the design and innovation of the matching engine at the core of this project.
 
 \section{Arabic Identity Matching Challenges}
-The main challenges in Arabic identity matching are orthographic variations, phonetic ambiguity, and data entry errors. These challenges are addressed in our system through a combination of text normalization, phonetic encoding, and fuzzy string matching.
+The primary difficulties in matching Arabic biographical records stem from the language's inherent flexibility and the lack of standardized data entry practices. These challenges can be categorized as follows:
+\begin{itemize}
+    \item \textbf{Orthographic Variations:} Arabic script includes multiple characters that are often used interchangeably or inconsistently. For instance, the Hamza (ء) can be written on different carriers (\textarabic{أ، إ، ؤ، ئ}) or omitted entirely. Similarly, the letters \textarabic{ة} (ta-marbuta) and \textarabic{ه} (ha) are frequently swapped at the end of words, as are \textarabic{ى} (alef-maqsura) and \textarabic{ي} (ya).
+    \item \textbf{Phonetic Ambiguity:} Many Arabic letters share similar pronunciations, leading to common spelling errors during transcription. For example, the sounds for \textarabic{س} (sin) and \textarabic{ص} (sad) can be confused, as can \textarabic{ذ} (dhal), \textarabic{ز} (zay), and \textarabic{ظ} (dha). A robust matching system must account for these phonetic similarities.
+    \item \textbf{Data Entry Inconsistencies:} Biographical records are often plagued by human error and a lack of uniform standards. This includes the inconsistent use of diacritics (vowels), the inclusion or omission of prefixes like "\textarabic{الـ}" (the), and variations in how family names are recorded (e.g., "\textarabic{بن علي}" vs. "\textarabic{ابن علي}").
+\end{itemize}
+These challenges necessitate a multi-faceted approach that goes beyond simple string comparison, combining normalization, phonetic analysis, and sophisticated similarity scoring.
 
 \section{String Similarity Algorithms}
-Our system uses the Jaro and Levenshtein algorithms to measure the similarity between strings. The Jaro algorithm is a measure of similarity between two strings. The Levenshtein algorithm is a measure of the difference between two strings.
+To quantify the similarity between two names, our system employs well-established string similarity algorithms. Rather than relying on a single metric, we use a combination to create a more nuanced and accurate score.
+\begin{itemize}
+    \item \textbf{Jaro-Winkler Distance:} This algorithm is particularly effective for short strings like names. It measures similarity based on the number of matching characters and the number of transpositions (characters that are out of order). The Jaro-Winkler variant adds a prefix bonus, giving higher scores to strings that match from the beginning. This is useful for names where the initial letters are often correct.
+    \item \textbf{Levenshtein Distance:} Also known as "edit distance," this metric calculates the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one string into the other. It is excellent at catching minor spelling mistakes or data entry errors. For example, the Levenshtein distance between "\textarabic{محمد}" and "\textarabic{محمود}" is small, reflecting their close similarity.
+\end{itemize}
+By blending the results of these two algorithms, our system can tolerate a wide range of variations while maintaining high precision.
 
 \section{Phonetic Encoding (Aramix Soundex)}
-Our system uses a custom Soundex algorithm called Aramix Soundex, which is specifically designed for Arabic names. This algorithm generates a phonetic code for a name, which can then be used to match names that have similar pronunciations.
+Since simple string comparison cannot account for names that sound alike but are spelled differently, we developed a custom phonetic encoding algorithm called \textbf{Aramix Soundex}. Standard phonetic algorithms like the original Soundex were designed for English and perform poorly on Arabic due to its different phonetic structure. 
+Aramix Soundex is tailored to the Arabic alphabet, grouping letters with similar sounds into equivalence classes. For example, it would map the phonetically similar letters \textarabic{ت} and \textarabic{ط} to the same code. By converting names into a phonetic "fingerprint," the system can identify potential matches even when the spellings are significantly different, such as matching "\textarabic{ضياء}" with "\textarabic{ظياء}".
 
 \section{Text Normalization Techniques}
-Our system uses a variety of text normalization techniques to handle the complexities of Arabic names. These techniques include removing diacritics, standardizing prefixes, and normalizing different forms of Hamza.
-
-\section{Conclusion}
-This chapter has provided a comprehensive overview of the state of the art in Arabic identity matching.
-
-% ================================
-% Chapter 5
-% ================================
-\chapter{System Design}
-
-\section{Introduction}
-This chapter outlines the design of the system, including the architecture, data model, and matching algorithm flow.
-
-
-
-\subsubsection{Logical Architecture}
-
-
-\begin{quote}
-“This diagram shows the logical architecture in detail.
-The frontend Angular app communicates with the Axum backend, which manages authentication with JWT and logs usage.
-The backend runs the matching engine with scoring logic, retrieving identity data from PostgreSQL.
-When a match is confirmed, the frontend also requests related data from Neo4j, which returns the family tree for visualization.”
-\end{quote}
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{figures/archi_loquique.png}
-  \caption{Logical Architecture Diagram.}
-  \label{fig:logical-architecture}
-\end{figure}
-
-\subsubsection{Deployment Diagram}
-\begin{quote}
-“The agent uses a web browser to access the system over HTTPS.
-Requests go to a Docker-based environment running the Rust backend, which connects to PostgreSQL for data and to the n8n service for workflows.
-n8n can also call external APIs like Google Gemini for advanced processing.”
-\end{quote}
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{figures/deployment_diagram.png}
-  \caption{Deployment Diagram.}
-  \label{fig:deployment-diagram}
-\end{figure}
-
-\subsection{Component Interaction \& Data Flow}
-The frontend sends a request to the backend API with the identity information. The backend then queries the database for candidate records and scores them using the matching algorithm. The results are then returned to the frontend and displayed to the user.
-
-\subsection{Technology Stack \& Deployment}
-The backend is built using Rust, a modern systems programming language that is known for its performance, safety, and concurrency. The frontend is built using Angular, a popular framework for building single-page applications. The system uses a PostgreSQL database to store the identity records.
-
-\section{Data Model \& UML Diagrams}
-\subsection{Entity–Relationship Diagram}
-(Content to be added)
-
-\subsubsection{In-Memory Data Structures: Linked Lists}
-To efficiently manage and consolidate identity records in memory, the system employs custom, singly-linked list structures defined in Rust. This approach is particularly effective for handling the dataset's numerous name variations and for merging duplicate records dynamically as data is loaded. The use of Box<T>, Rust's smart pointer for heap allocation, is idiomatic for these recursive, pointer-like structures.
-
-Two primary structures are used:
+Before any comparison occurs, all input strings undergo a rigorous normalization process to eliminate common inconsistencies. This is a critical pre-processing step that standardizes the text to ensure that comparisons are made on a level playing field. Key normalization rules include:
 \begin{itemize}
-    \item \textbf{VariationNode:} A simple linked list node where each node stores a single string variation of a name (e.g., "Mohamed", "Mohammed"). The next_variation field is of type Option<Box<VariationNode>>, pointing to the next variation or None.
-    \item \textbf{IdentityNode:} This structure represents a unique individual and holds their complete, normalized biographical data. Each name field within an IdentityNode can point to the head of a VariationNode linked list. Furthermore, the `IdentityNode`s themselves are organized into a larger linked list via the next_identity: Option<Box<IdentityNode>> field.
+    \item \textbf{Hamza Unification:} All forms of Hamza (\textarabic{أ، إ، ؤ، ئ}) are standardized to a single character, typically the bare Alef (\textarabic{ا}). For example, the name "\textarabic{إسماعيل}" becomes "\textarabic{اسماعيل}".
+    \item \textbf{Final Letter Standardization:} The characters \textarabic{ة} (ta-marbuta) and \textarabic{ى} (alef-maqsura) are normalized to their plain counterparts, \textarabic{ه} and \textarabic{ي} respectively. For example, "\textarabic{فاطمة}" becomes "\textarabic{فاطمه}" and "\textarabic{موسى}" becomes "\textarabic{موسي}".
+    \item \textbf{Diacritic Removal:} All diacritical marks (e.g., fatha, kasra, damma: \textarabic{َ ِ ُ}) are stripped from the text, as they are rarely used consistently in official records. The name "\textarabic{مُحَمَّد}" is simplified to "\textarabic{محمد}".
+    \item \textbf{Prefix Standardization:} Common prefixes like "\textarabic{الـ}", "\textarabic{بن}", and "\textarabic{ابن}" are handled by either removing them or standardizing them to a single form to prevent them from skewing similarity scores. For example, "\textarabic{الرحمان}" becomes "\textarabic{رحمان}".
 \end{itemize}
-
-This design allows the system to build a clean, consolidated dictionary of identities in memory. When a new record is loaded from the database, the system traverses the IdentityNode list to find a match. If a matching identity already exists, the new name variations are simply inserted into the corresponding VariationNode lists, effectively merging the records without creating duplicates. This avoids redundant data and simplifies the subsequent matching process.
-
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{figures/Search for Matches diagrams.png}
-  \caption{Sequence Diagram for the matching process.}
-  \label{fig:sequence-diagram}
-\end{figure}
-
-\section{Physical Architecture}
-Physically, the system is fully containerized with Docker and orchestrated via Docker Compose.
- The main services are:
-\begin{itemize}
-    \item Angular frontend (served by Nginx).
-    \item Rust backend service.
-    \item PostgreSQL database.
-    \item Neo4j as an external graph service.
-\end{itemize}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{figures/archi_physique.png}
-  \caption{Physical Architecture Diagram.}
-  \label{fig:physical-architecture}
-\end{figure}
+These normalization steps are essential for achieving high accuracy and are applied universally before the phonetic and similarity algorithms are executed.
 
 \section{Matching Algorithm Flow}
 
@@ -670,7 +602,92 @@ A critical optimization is the use of "generational searching." Instead of loadi
 After the initial pool of candidates is loaded and pre-filtered, the most computationally intensive task is scoring each candidate against the input. To accelerate this process, the system leverages multithreading through the \textbf{Rayon} library in Rust. Rayon provides data-parallelism capabilities, allowing the system to process the list of candidates concurrently across multiple CPU cores. By simply changing a standard iterator (.iter()) to a parallel one (.par_iter()), the scoring workload is automatically distributed among available threads. This parallel execution model drastically reduces the time required to score hundreds or thousands of candidates, ensuring that the API can deliver results in real-time, even under heavy load.
 
 \section{Conclusion}
-This chapter has provided a detailed overview of the system's design.
+This chapter has laid the theoretical groundwork for our solution by examining the inherent complexities of Arabic identity matching and surveying the established techniques for addressing them. We have seen that a successful system cannot rely on a single algorithm but must instead employ a sophisticated, multi-stage approach. By combining rigorous text normalization, custom phonetic encoding with Aramix Soundex, and a hybrid scoring model using both Jaro-Winkler and Levenshtein distances, we can overcome the challenges of orthographic and phonetic variation. The detailed algorithm flow presented herein provides a clear blueprint for a process that is not only accurate but also highly performant. With this strong theoretical and algorithmic foundation established, the following chapter will translate these concepts into a concrete system architecture and design.
+
+% ================================
+% Chapter 5
+% ================================
+\chapter{System Design}
+
+\section{Introduction}
+Building upon the requirements and algorithmic foundations established in the previous chapters, this chapter presents the concrete technical design of the مطابق الهوية system. The focus here is on translating the "what" (the requirements) into the "how" (the implementation blueprint). We will detail the system's architecture at multiple levels, from a high-level logical view that illustrates the separation of concerns to a physical deployment model that shows how the components interact in a containerized environment. This chapter will also define the core data models, including the database schema and the in-memory structures used for efficient processing. By providing a comprehensive overview of the system's design, we create a clear and actionable guide for the implementation phase, ensuring that all components are built in a cohesive, scalable, and maintainable manner.
+
+
+
+\subsubsection{Logical Architecture}
+
+
+\begin{quote}
+“This diagram shows the logical architecture in detail.
+The frontend Angular app communicates with the Axum backend, which manages authentication with JWT and logs usage.
+The backend runs the matching engine with scoring logic, retrieving identity data from PostgreSQL.
+When a match is confirmed, the frontend also requests related data from Neo4j, which returns the family tree for visualization.”
+\end{quote}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{figures/archi_loquique.png}
+  \caption{Logical Architecture Diagram.}
+  \label{fig:logical-architecture}
+\end{figure}
+
+\subsubsection{Deployment Diagram}
+\begin{quote}
+“The agent uses a web browser to access the system over HTTPS.
+Requests go to a Docker-based environment running the Rust backend, which connects to PostgreSQL for data and to the n8n service for workflows.
+n8n can also call external APIs like Google Gemini for advanced processing.”
+\end{quote}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/deployment_diagram.png}
+  \caption{Deployment Diagram.}
+  \label{fig:deployment-diagram}
+\end{figure}
+
+
+
+
+
+\section{Data Model }
+
+
+\subsubsection{In-Memory Data Structures: Linked Lists}
+To efficiently manage and consolidate identity records in memory, the system employs custom, singly-linked list structures defined in Rust. This approach is particularly effective for handling the dataset's numerous name variations and for merging duplicate records dynamically as data is loaded. The use of Box<T>, Rust's smart pointer for heap allocation, is idiomatic for these recursive, pointer-like structures.
+
+Two primary structures are used:
+\begin{itemize}
+    \item \textbf{VariationNode:} A simple linked list node where each node stores a single string variation of a name (e.g., "احمد", "أحمد "). The next_variation field is of type Option<Box<VariationNode>>, pointing to the next variation or None.
+    \item \textbf{IdentityNode:} This structure represents a unique individual and holds their complete, normalized biographical data. Each name field within an IdentityNode can point to the head of a VariationNode linked list. Furthermore, the `IdentityNode`s themselves are organized into a larger linked list via the next_identity: Option<Box<IdentityNode>> field.
+\end{itemize}
+
+This design allows the system to build a clean, consolidated dictionary of identities in memory. When a new record is loaded from the database, the system traverses the IdentityNode list to find a match. If a matching identity already exists, the new name variations are simply inserted into the corresponding VariationNode lists, effectively merging the records without creating duplicates. This avoids redundant data and simplifies the subsequent matching process.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/Search for Matches diagrams.png}
+  \caption{Sequence Diagram for the matching process.}
+  \label{fig:sequence-diagram}
+\end{figure}
+
+\section{Physical Architecture}
+Physically, the system is fully containerized with Docker and orchestrated via Docker Compose.
+ The main services are:
+\begin{itemize}
+    \item Angular frontend (served by Nginx).
+    \item Rust backend service.
+    \item PostgreSQL database.
+    \item Neo4j as an external graph service.
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/archi_physique.png}
+  \caption{Physical Architecture Diagram.}
+  \label{fig:physical-architecture}
+\end{figure}
+
+\section{Conclusion}
+This chapter has provided a detailed blueprint of the system's architecture and data structures. By defining the logical and physical architectures, we have established a clear separation of concerns and a scalable deployment strategy. The data model, with its relational and graph-based components, is tailored to handle both structured biographical data and complex family relationships efficiently. Furthermore, the design of the in-memory linked-list structures provides a clear path for performant data handling within the Rust backend. With this comprehensive design in place, we are now fully prepared to move from planning to execution. The next chapter will detail the implementation of this design, sprint by sprint, showing how these architectural concepts were translated into functional code.
 
 % ================================
 % Chapter 6
@@ -685,7 +702,7 @@ This chapter has provided a detailed overview of the system's design.
 \end{figure}
 
 \section{Introduction}
-This chapter describes the implementation of the system, broken down by sprints, including the backend, frontend, and database integration.
+This chapter documents the journey of transforming the architectural design into a tangible, working system. Following the agile Scrum methodology, the implementation was organized into a series of focused sprints, each with a clear set of goals and deliverables. This chapter provides a chronological account of that development process, detailing the work completed in each sprint, from laying the backend foundations in Rust to building the interactive frontend with Angular and integrating the various database and automation components. By breaking down the implementation into these iterative cycles, we can clearly trace the evolution of the system from its initial prototypes to the final, feature-complete application, highlighting key technical decisions and challenges overcome along the way.
 
 \subsection{Sprint 1: Backend Foundations and Matching Logic}
 \subsubsection{Sprint Backlog}
@@ -768,7 +785,7 @@ Performance testing was conducted using a load testing tool to simulate a large 
 The final sprint review demonstrated the completed system, including the performance improvements and the automated deployment pipeline. The stakeholders were very impressed with the results and approved the system for production deployment.
 
 \section{Conclusion}
-This chapter has detailed the implementation of the system.
+Through a structured, sprint-based approach, the system was brought to life, evolving from a basic backend API to a fully functional, end-to-end solution. The iterative development process allowed for continuous feedback and refinement, ensuring that each component—from the high-performance Rust matching engine to the intuitive Angular frontend—was built to a high standard. The sprint-by-sprint breakdown demonstrates a methodical progression of work, with each cycle building upon the last to add new layers of functionality. The successful completion of these implementation sprints resulted in a robust and deployable system, ready for the crucial next phase: a thorough evaluation of its performance and accuracy.
 
 % ================================
 % Chapter 7
@@ -776,7 +793,7 @@ This chapter has detailed the implementation of the system.
 \chapter{Evaluation}
 
 \section{Introduction}
-This chapter presents the evaluation of the system, including the datasets and test cases used, and the accuracy and performance results.
+With the implementation complete, the crucial next step is to rigorously evaluate the system to determine whether it meets its core objectives. A system can be well-designed and elegantly coded, but its ultimate value lies in its real-world performance and accuracy. This chapter presents a comprehensive evaluation of the مطابق الهوية solution, focusing on two key non-functional requirements: the accuracy of the matching algorithm and the performance (speed and scalability) of the system under load. By using a carefully constructed synthetic dataset and a "golden set" of known matches, we can quantitatively measure the system's precision and recall, while load testing will reveal its ability to handle real-time requests. The results presented here will provide empirical evidence of the system's effectiveness and its readiness for deployment.
 
 \section{Datasets and Test Cases}
 The system was tested using a dataset of synthetic identity records. The dataset was designed to cover a wide range of variations in Arabic names, including the cases identified in the problem statement (e.g., unregistered births, citizens living abroad, etc.).
@@ -788,15 +805,15 @@ The accuracy of the matching algorithm was evaluated using the "golden set" of k
 The evaluation results show that the system is both accurate and performant. The use of a hybrid matching approach, combining text normalization, phonetic encoding, and fuzzy string matching, is effective in handling the complexities of Arabic names.
 
 \section{Conclusion}
-This chapter has evaluated the performance of the system.
+The evaluation results presented in this chapter provide strong evidence that the system successfully meets its primary goals of accuracy and performance. The high precision and recall rates, validated against a challenging synthetic dataset, demonstrate the effectiveness of the hybrid matching algorithm in handling the nuances of Arabic names. Furthermore, the positive outcomes of the load testing confirm that the system's architecture, particularly the Rust backend and its optimized data handling, is capable of delivering the low-latency responses required for a real-time operational environment. Having quantitatively verified its capabilities, the system is confirmed to be not just a theoretical success but a practical and robust solution. The next chapter will delve deeper into the mathematical underpinnings of the scoring model that drives this accuracy.
 
 % ================================
 % Chapter 8
 % ================================
 \chapter{Mathematical Approach and Scoring Model}
 
-\section{Overview of the Matching Logic}
-The matching process relies on a combination of string similarity metrics and a weighted scoring model.
+\section{Introduction}
+At the heart of the identity matching engine is a quantitative scoring model designed to translate linguistic similarity into a numerical score. This chapter moves beyond the high-level description of the algorithms and delves into the precise mathematical formulas and models that govern the matching process. We will dissect the score aggregation formula, detailing the weights assigned to each biographical field and the rationale behind them. Furthermore, this chapter will provide the formal definitions for the Jaro and Levenshtein similarity metrics, explain the mechanics of the custom Aramix Soundex algorithm, and discuss the statistical assumptions that underpin the selection of an appropriate matching threshold. By understanding these mathematical details, we gain a deeper insight into how the system achieves its accuracy and how it can be fine-tuned for different operational contexts.
 
 \section{Score Aggregation Formula}
 The final match score is a weighted sum of the scores of individual fields. The weights are as follows: First Name (35\%), Last Name (30\%), Father's Name (10\%), Grandfather's Name (5\%), Mother's Name (5\%), Date of Birth (10\%), and Place of Birth (5\%). The total score is given by:
@@ -837,15 +854,16 @@ The distribution of scores is assumed to follow a normal law. This assumption is
 \section{Threshold \(\tau\) Selection}
 The threshold \(\tau\) is selected based on the desired precision and recall rates. A higher threshold will result in a higher precision but a lower recall, while a lower threshold will result in a lower precision but a higher recall.
 
-
-% ================================
-% Chapter 9
-% ================================
+\section{Conclusion}
+This chapter has provided a detailed mathematical exposition of the scoring and matching engine. By defining the precise formulas for score aggregation, fuzzy similarity, and phonetic encoding, we have illuminated the quantitative logic that drives the system's decision-making process. This rigorous, model-based approach ensures that the matching process is not a "black box," but rather a transparent and configurable system whose accuracy is grounded in established mathematical principles. Understanding this model is key to appreciating the system's ability to deliver reliable and nuanced results. The following chapters will shift from the theoretical and technical to the practical, demonstrating the system in action.
 
 % ================================
 % Chapter 10
 % ================================
 \chapter{Demonstration}
+
+\section{Introduction}
+While the previous chapters have detailed the theoretical, architectural, and mathematical foundations of the system, this chapter aims to provide a practical demonstration of the final product in action. The true measure of the system's success is its ability to deliver a seamless, intuitive, and powerful user experience for the government agents who will use it daily. Through a series of screenshots and descriptions, this chapter will walk through the core functionalities of the application, from submitting a search query to visualizing a complex family tree. This demonstration will showcase the real-time performance, the accuracy of the match results, and the overall usability of the interface, bringing to life the concepts discussed throughout this report.
 
 In the demo, the following would be shown:
 \begin{itemize}
@@ -865,6 +883,75 @@ In the demo, the following would be shown:
 
 \paragraph{Note on the Database}
 The author was not provided with a realistic database for this project. Therefore, a synthetic dataset was generated, mirroring the structure of the government's database. A best effort was made to include realistic family relationships to ensure meaningful family tree visualizations.
+
+\section{Final Work Screenshots}
+This section contains screenshots that demonstrate the final application's user interface and key features. The images below illustrate the search functionality, the presentation of match results, and the family tree visualization.
+
+\begin{figure}[htbp]
+  \centering
+   \includegraphics[width=\textwidth]{figures/register.png}
+  \caption{Registration interface .}
+  \label{fig:Registration form}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/agentinterface.png}
+  \caption{website interface.}
+  \label{fig:main interface}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+   \includegraphics[width=\textwidth]{figures/fillidentity.png}
+  \caption{filling the identity form .}
+  \label{filling the indentity form}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+   \includegraphics[width=\textwidth]{figures/identitymatch.png}
+   \includegraphics[width=\textwidth]{figures/matchdetails.png}
+  \caption{the match results page.}
+  \label{fig:match result}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+   \includegraphics[width=\textwidth]{figures/familytree.png}
+  \caption{family tree visualization .}
+  \label{ the family tree visualization}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+   \includegraphics[width=\textwidth]{figures/admininterface.png}
+  \caption{admin interface.}
+  \label{ the admin interface}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+   \includegraphics[width=\textwidth]{figures/audittab.png}
+  \caption{audit table .}
+  \label{ the audit table}
+\end{figure}
+
+\section{Conclusion}
+The demonstration presented in this chapter showcases a system that is not only powerful in its technical capabilities but also intuitive and user-friendly in its design. The seamless flow from real-time identity matching to dynamic family tree visualization confirms that the project has successfully translated complex requirements into a practical and effective tool. The application is responsive, the results are presented clearly, and the core objectives of speed, accuracy, and usability have been met. This demonstration serves as the final proof of concept, validating the design and implementation choices made throughout the project and confirming its readiness for operational deployment.
+
+
+\chapter*{General Conclusion}
+\addcontentsline{toc}{chapter}{General Conclusion}
+
+This project successfully addressed the complex challenge of Arabic identity matching by designing, implementing, and evaluating a modern, high-performance system. The initial problem, rooted in the linguistic nuances of Arabic names and the inefficiencies of manual verification, demanded an innovative solution that went beyond traditional methods. By integrating a multi-stage matching pipeline—combining rule-based text normalization, a custom-designed phonetic algorithm (Aramix Soundex), and a weighted scoring model with Jaro-Winkler and Levenshtein distances—we developed a system capable of delivering highly accurate results in real-time.
+
+The architectural choices, centered on a high-performance Rust backend, a responsive Angular frontend, and a scalable PostgreSQL database, proved to be robust and effective. The system's capabilities were further extended through the integration of a Neo4j graph database for modeling complex family relationships and an n8n automation workflow that leverages generative AI for the dynamic visualization of family trees. This microservices-oriented approach not only ensured a clear separation of concerns but also provided a scalable and maintainable foundation for future development.
+
+The project was executed following a hybrid methodology, combining the structured lifecycle of CRISP-DM for the data science components with the agile framework of Scrum for overall project management. This allowed for iterative development, continuous feedback, and the systematic alignment of technical work with business objectives. The evaluation results confirmed the system's success, demonstrating both high precision in matching and low latency under load, thereby meeting all primary success criteria.
+
+Ultimately, this work represents more than just a technical achievement. It provides a practical blueprint for modernizing critical government infrastructure, replacing an error-prone manual process with an intelligent, efficient, and reliable solution. The system not only empowers government agents but also serves the public by ensuring that citizens can be identified quickly and accurately, restoring access and dignity. Future work could focus on integrating self-hosted large language models to enhance security and speed, expanding the training dataset, and further refining the scoring weights based on operational feedback. However, as it stands, the Tunisian_NamesML system is a complete and successful solution, ready for deployment.
 
 \begin{appendices}
 \chapter{Use Case Diagrams}
