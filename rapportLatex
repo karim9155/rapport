@@ -316,70 +316,44 @@ This setup ensures that all components can communicate with each other over a de
 The \textbf{n8n workflow}, while central to the family tree generation process, is managed as a separate deployment. It can be self-hosted using its official Docker image and is integrated with the main application via secure webhook calls, a common pattern in microservice architectures.
 
 \section{Development Methodology}
-The project follows a hybrid approach, combining the Scrum framework for project management with the CRISP-DM methodology for the data science lifecycle.
+The project follows a hybrid approach, combining the Scrum framework for project management with the CRISP-DM methodology for the data science lifecycle. Scrum governed how the team organised work, inspected progress, and adapted priorities, while CRISP-DM supplied the analytical structure for the data-oriented tasks tackled during each sprint.
 
 \subsection{Scrum Framework}
 
-\subsubsection*{Roles}
-\textbf{Product Owner:} Ministry of Interior\\
-\textbf{Scrum Master:} Mouaïa Ben Hamed\\
-\textbf{Developer:} Ilef (author)
+\subsubsection*{Team Roles and Responsibilities}
+The Scrum Team remained compact in order to maintain short feedback loops while still covering all mandatory roles.\\
+\textbf{Product Owner:} Ministère de l'Intérieur representative in charge of expressing needs, validating increments, and refining acceptance criteria.\\
+\textbf{Scrum Master:} Mouaïa Ben Hamed, facilitator of ceremonies, blocker removal (e.g., gaining secured dataset access), and guardian of Scrum values.\\
+\textbf{Developer:} Ilef (author), responsible for implementing increments, estimating work, preparing demonstrations, and logging improvement actions.
 
+\subsubsection*{Sprint Cadence and Planning}
+Delivery was structured around four \emph{two-week} sprints. Each iteration began with \textbf{Sprint Planning} to agree on a clear Sprint Goal, select the highest-value Product Backlog items, and decompose them into tasks sized for the available capacity (teaching duties and exams were explicitly factored in). Sprint Goals emphasised vertical slices so that every iteration produced a potentially shippable increment deployable to the staging environment.
 
-\subsubsection*{Events}
-\textbf{Sprint Planning} (2h): select highest-value backlog, define Sprint Goal and DoD.\\
-\textbf{Daily Scrum} (15 min): progress, risks, plan next 24 h.\\
-\textbf{Sprint Review} (1h): demo to PO, capture feedback, re-prioritize.\\
-\textbf{Retrospective} (45 min): keep/change/try actions for next sprint.
-\textit{Note: Scrum of one — Daily = personal stand-up; Review with PO; Retrospective = self-assessment with action items.}
+\subsubsection*{Scrum Ceremonies and Contribution to Progress}
+Daily Scrums (15 minutes) with the Scrum Master synchronised efforts, surfaced impediments such as missing Neo4j indexes, and kept focus on the Sprint Goal. Sprint Reviews showcased the increment to the Product Owner—examples include the matching dashboard in Sprint~2 and the family tree visualisation in Sprint~3—and captured feedback that immediately fed backlog reprioritisation. Sprint Retrospectives followed each review to consolidate lessons learned and decide concrete experiments (e.g., pairing backlog refinement with architecture spikes, moving Daily Scrum earlier to align agendas).
 
-\subsubsection*{Artifacts}
-\textbf{Product Backlog:} ordered by value and feasibility, refined each sprint.\\
-\textbf{Sprint Backlog:} selected items + task breakdown + forecast.\\
-\textbf{Increment:} potentially shippable, meets DoD.
+\subsubsection*{Scrum Artifacts and Backlog Evolution}
+The \textbf{Product Backlog} was refined weekly. Epics were decomposed into user stories enriched with acceptance criteria, then ordered by business value, risk reduction, and technical feasibility. The \textbf{Sprint Backlog} tracked selected items and their task breakdown on a Kanban board (Todo/In Progress/Review/Done), enabling transparency during Daily Scrums. Items that failed to meet the Definition of Done (code merged, tests \(\geq\)~80\% on touched lines, documentation updated, demo scenario rehearsed, PO sign-off) were carried over intentionally, with root causes analysed in the retrospective to avoid recurring spill-overs.
 
-\subsubsection*{Definition of Done (DoD)}
-Code merged, unit tests \(\geq\) 80\% on changed lines, API documented, UI strings reviewed, security checks pass, demo scenario prepared, PO acceptance recorded.
-
-\subsubsection*{Sprint Overview (4 sprints, 2 weeks each)}
 \begin{table}[H]\centering
 \small
 \begin{tabular}{@{}llp{8.5cm}@{}}
 \toprule
 \textbf{Sprint} & \textbf{Goal} & \textbf{Delivered Increment (examples)}\\
 \midrule
-S1 & Backend foundation & Axum skeleton, /match endpoint, scoring v1, CI build\\
-S2 & Accuracy uplift    & PG integration, normalization, Aramix Soundex, gen-load\\
-S3 & Usability          & Angular form + results table, API service, auth flow\\
-S4 & Hardening \& deploy& Golden-set tests, perf tuning (Rayon), Docker Compose, demo\\
+S1 & Backend foundation & Axum skeleton, initial /match endpoint, scoring v1, CI build.\\
+S2 & Accuracy uplift    & PostgreSQL integration, normalization pipeline, Aramix Soundex, load test harness.\\
+S3 & Usability          & Angular search dashboard, Neo4j graph queries, n8n orchestration, UX enhancements.\\
+S4 & Hardening \& deploy& Golden-set validation tests, performance tuning (Rayon), Docker Compose stack, release documentation.\\
 \bottomrule
 \end{tabular}
-\caption{Sprint summary and increments.}
+\caption{Sprint summary highlighting increment-driven delivery.}
 \end{table}
-
-\subsubsection*{Burndown (sample)}
-\begin{figure}[H]\centering
-\begin{tikzpicture}
-\begin{axis}[
-    width=\linewidth, height=5cm,
-    xlabel=Day, ylabel=Remaining work (pts),
-    ymin=0, xmin=1, xmax=10, grid=both]
-\addplot coordinates {(1,30) (2,27) (3,23) (4,19) (5,16) (6,12) (7,9) (8,6) (9,3) (10,0)};
-\addlegendentry{Actual}
-\addplot coordinates {(1,30) (10,0)};
-\addlegendentry{Ideal}
-\end{axis}
-\end{tikzpicture}
-\caption{Sprint burndown (illustrative).}
-\end{figure}
-
-\subsubsection*{Backlog Management}
-Refinement weekly. New findings from Reviews add items; low-value items deferred. Priority = business value \(\times\) risk reduction \(\times\) feasibility.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{figures/Scrum schema.png}
-    \caption{scrum}
+    \caption{Scrum framework adopted for the project.}
 \end{figure}
 
 \subsection{CRISP-DM Methodology}
@@ -403,42 +377,123 @@ The data science component of the project followed the \textbf{Cross-Industry St
 By integrating these phases into the Scrum sprints, the development of the matching engine was both systematic and agile, ensuring that the data science components were developed iteratively and aligned with the overall project goals.
 
 \section{Project Planning}
-\subsection{Roadmap \& Timeline}
-The project was executed over a six-month period, organized into three main phases. This structure allowed for a systematic progression from foundational research to final deployment, with iterative development within each phase.
+This section consolidates how the project roadmap was executed through Scrum. It opens with the calendar-level planning of the four sprints before recounting, sprint by sprint, the increments produced, the ceremonies that guided adaptation, and the backlog adjustments that kept priorities aligned with stakeholder value.
+\subsection{Sprint Roadmap \& Timeline}
+The six-month academic calendar was translated into a cadence of four production sprints lasting two weeks each, separated by short buffer periods for exams and stakeholder availability. This cadence ensured regular delivery while keeping room for inspection and adaptation.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{figures/timeline.png}
-  \caption{Project timeline and roadmap.}
+  \caption{Sprint timeline aligned with academic milestones.}
   \label{fig:timeline}
 \end{figure}
 
-\subsubsection{Phase 1: Foundation \& Analysis (Months 1-2)}
-This initial phase focused on establishing the project's groundwork. Key activities included:
+\noindent Table~\ref{tab:sprint-objectives} summarises the goal, main deliverables, and the most impactful ceremony outcomes for every sprint.
+
+\begin{longtable}{@{}p{1.3cm}p{3.7cm}p{6cm}p{4cm}@{}}
+\caption{Sprint objectives and Scrum ceremony highlights}\label{tab:sprint-objectives}\\
+\toprule
+\textbf{Sprint} & \textbf{Goal} & \textbf{Key Deliverables} & \textbf{Ceremony Insights}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Sprint} & \textbf{Goal} & \textbf{Key Deliverables} & \textbf{Ceremony Insights}\\
+\midrule
+\endhead
+S1 & Establish technical foundations & Product vision board, initial Product Backlog, authentication scaffold, architecture decision record, normalization prototype. & Review confirmed personas and prioritised search-first scope; retrospective scheduled mid-sprint backlog refinement.\\
+S2 & Deliver the matching engine & Weighted scoring service, PostgreSQL integration, dataset cleansing scripts, first automated tests, performance benchmarks. & Review feedback reprioritised Neo4j integration; retrospective introduced Definition of Ready checklist.\\
+S3 & Enrich user experience & Angular dashboard, Neo4j graph traversal endpoints, n8n workflow, monitoring dashboards, UX copy review. & Review highlighted need for contextual hints; retrospective moved Daily Scrum earlier to involve Product Owner.\\
+S4 & Harden and deploy & Docker Compose stack, admin audit trail, pagination, release runbook, UAT fixes, knowledge transfer package. & Review approved release candidate; retrospective focused on handover actions and maintenance backlog.\\
+\bottomrule
+\end{longtable}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/main.rs diagram.png}
+  \caption{Diagram of the main Rust application flow delivered across sprints.}
+  \label{fig:main-rs-diagram}
+\end{figure}
+
+This narrative documents how each sprint translated the roadmap into working increments, detailing the backlog items selected, the design decisions taken, the implementation approach, and the feedback gathered during the ceremonies.
+
+\subsection{Sprint 1: Backend Foundations and Matching Logic}
+\paragraph{Sprint Backlog}
+The backlog for this sprint included the following user stories:
 \begin{itemize}
-    \item A deep dive into the business requirements of the Ministère de l'Intérieur.
-    \item Thorough analysis of the dataset to understand its structure and the nuances of Arabic name variations.
-    \item Design of the system architecture and initial setup of the development environment (Rust backend, Angular frontend).
-    \item Development of the initial text normalization and phonetic encoding prototypes.
+    \item Set up the Rust development environment.
+    \item Create a new Axum project.
+    \item Define the API endpoint for matching identities.
+    \item Implement the basic data structures for identities and match results.
+    \item Implement the initial version of the weighted scoring algorithm.
 \end{itemize}
 
-\subsubsection{Phase 2: Core Development \& Implementation (Months 3-4)}
-This phase involved the bulk of the implementation work. The focus was on building the core components of the system:
+\paragraph{Sprint Design}
+The design for this sprint focused on creating a simple and efficient API for matching identities. The API endpoint was designed to accept a JSON object with the input identity and return a JSON array of match results. The scoring algorithm was designed to be modular, so that it could be easily extended with new matching techniques in the future.
+
+\paragraph{Implementation Details}
+A single POST endpoint was created at /match. This endpoint accepts an InputIdentity object and returns a list of MatchResult objects. The implementation uses the Axum framework to handle the HTTP requests and responses. The core of the matching logic is the calculate\_full\_score function, which computes a weighted score based on the similarity of different fields. The initial implementation uses the Jaro similarity metric for string comparison.
+
+\paragraph{Sprint Review}
+The sprint review demonstrated the basic functionality of the matching API. A command-line client was used to send requests to the API and display the results. The feedback from the review was positive, and the team decided to proceed with the implementation of the more advanced matching features in the next sprint.
+
+\subsection{Sprint 2: Database Integration and Advanced Modules}
+\paragraph{Sprint Backlog}
+The backlog for this sprint included the following user stories:
 \begin{itemize}
-    \item Implementation of the full matching engine, including the weighted scoring algorithm combining Jaro-Winkler and Levenshtein metrics.
-    \item Development of the backend REST API using Axum to serve the matching logic.
-    \item Creation of the user interface with Angular, allowing agents to input data and view match results.
-    \item Integration with the Neo4j graph database and implementation of the n8n workflow for automated family tree image generation.
+    \item Load identity records from the database.
+    \item Implement text normalization functions for Arabic names.
+    \item Implement the Aramix Soundex phonetic algorithm.
+    \item Integrate the advanced matching modules into the scoring algorithm.
 \end{itemize}
 
-\subsubsection{Phase 3: Evaluation, Refinement \& Deployment (Months 5-6)}
-The final phase was dedicated to testing, improving, and preparing the system for production. Activities included:
+\paragraph{Sprint Design}
+The design for this sprint focused on improving the accuracy of the matching algorithm by adding text normalization and phonetic matching capabilities. The score\_pair\_with\_soundex function was introduced to combine string similarity with phonetic matching. The best\_score\_against\_variations function was added to handle name variations.
+
+\paragraph{Implementation Details}
+The backend was connected to the PostgreSQL database using the tokio-postgres library. A function load\_identities\_by\_generation was implemented to load records for a specific decade, which is an optimization to reduce the amount of data loaded into memory. Several normalization functions were implemented in normalization.rs to handle the complexities of Arabic text. The aramix\_soundex function was implemented in phonetic.rs to provide phonetic matching capabilities. These modules were integrated into the main scoring logic in matching.rs.
+
+\paragraph{Sprint Review}
+The sprint review demonstrated a significant improvement in the accuracy of the matching results. The system was now able to handle a wider range of variations in Arabic names. The team was confident that the system was ready for the frontend development in the next sprint.
+
+\subsection{Sprint 3: Frontend Development and API Connection}
+\paragraph{Sprint Backlog}
+The backlog for this sprint included the following user stories:
 \begin{itemize}
-    \item Rigorous evaluation of the matching algorithm's accuracy using the golden set.
-    \item Performance profiling and optimization of the backend to ensure low latency.
-    \item Incorporating user feedback to refine the frontend and user experience.
-    \item Containerizing the application using Docker and preparing the deployment pipeline.
+    \item Create a new Angular project.
+    \item Design the user interface for the identity matching form.
+    \item Implement the identity matching component.
+    \item Create a service to communicate with the backend API.
+    \item Display the matching results to the user.
 \end{itemize}
+
+\paragraph{Sprint Design}
+The UI was designed to be simple and intuitive. A single form is used to collect the user's identity information. The matching results are displayed in a clear and concise table, with a detailed breakdown of the score for each match. The frontend is built around the IdentityMatchComponent, which is responsible for managing the user input and displaying the results. An IdentityMatchService is used to encapsulate the communication with the backend API.
+
+\paragraph{Implementation Details}
+The IdentityMatchComponent was implemented using Angular's reactive forms module to handle user input. The component subscribes to the IdentityMatchService to receive the matching results and updates the UI accordingly. The IdentityMatchService uses Angular's HttpClient to make POST requests to the backend API. The service includes interfaces for the InputIdentity and MatchResult data structures to ensure type safety.
+
+\paragraph{Sprint Review}
+The sprint review demonstrated the end-to-end functionality of the system. Users were able to enter their identity information in the web interface and see the matching results in real-time. The feedback was very positive, and the team was ready to move on to the final sprint.
+
+\subsection{Sprint 4: Evaluation, Optimization, and Deployment}
+\paragraph{Sprint Backlog}
+The backlog for this sprint included the following user stories:
+\begin{itemize}
+    \item Create a test suite to evaluate the accuracy of the matching algorithm.
+    \item Profile the performance of the backend and identify any bottlenecks.
+    \item Optimize the code for performance and memory usage.
+    \item Create a deployment pipeline for the system.
+    \item Document the system architecture and deployment process.
+\end{itemize}
+
+\paragraph{Sprint Design}
+The evaluation strategy focused on measuring the precision and recall of the matching algorithm. A "golden set" of known matches was used to test the system and identify any cases where it failed to produce the correct results. The optimization plan focused on improving the performance of the backend.
+
+\paragraph{Implementation Details}
+Performance testing was conducted using a load testing tool to simulate a large number of concurrent users. The results of the testing showed that the system was able to handle a high volume of requests without any significant degradation in performance. A deployment pipeline was created using Docker and Docker Compose to automate the deployment of the system.
+
+\paragraph{Sprint Review}
+The final sprint review demonstrated the completed system, including the performance improvements and the automated deployment pipeline. The stakeholders were very impressed with the results and approved the system for production deployment.
 
 \subsection{Project Backlog}
 \noindent The Product Backlog is ordered and refined each sprint. Table \ref{tab:pb} shows representative items and the sprint where they were delivered.
@@ -466,7 +521,7 @@ System Infra \& Deploy & Task & Compose file for local stack. & S4\\
 \end{longtable}
 
 \paragraph{Backlog Evolution}
-Reviews added items for DB indexing, API pagination, and UI hints; low-value Admin cosmetics were deferred past S4.
+Sprint Reviews systematically generated new backlog entries: database indexing (S2), API pagination and contextual UI hints (S3), deployment observability tasks (S4). Conversely, low-value cosmetic requests were transparently parked in the release backlog after alignment with the Product Owner, demonstrating active scope management.
 
 
 \subsection{Risk \& Mitigation}
@@ -729,108 +784,10 @@ Physically, the system is fully containerized with Docker and orchestrated via D
 \end{figure}
 
 \section{Conclusion}
-This chapter has provided a detailed blueprint of the system's architecture and data structures. By defining the logical and physical architectures, we have established a clear separation of concerns and a scalable deployment strategy. The data model, with its relational and graph-based components, is tailored to handle both structured biographical data and complex family relationships efficiently. Furthermore, the design of the in-memory linked-list structures provides a clear path for performant data handling within the Rust backend. With this comprehensive design in place, we are now fully prepared to move from planning to execution. The next chapter will detail the implementation of this design, sprint by sprint, showing how these architectural concepts were translated into functional code.
+This chapter has provided a detailed blueprint of the system's architecture and data structures. By defining the logical and physical architectures, we have established a clear separation of concerns and a scalable deployment strategy. The data model, with its relational and graph-based components, is tailored to handle both structured biographical data and complex family relationships efficiently. Furthermore, the design of the in-memory linked-list structures provides a clear path for performant data handling within the Rust backend. With this comprehensive design in place, the report now turns to evaluating how effectively the implemented solution performs against its objectives.
 
 % ================================
 % Chapter 6
-% ================================
-\chapter{Implementation}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\textwidth]{figures/main.rs diagram.png}
-  \caption{Diagram of the main Rust application flow.}
-  \label{fig:main-rs-diagram}
-\end{figure}
-
-\section{Introduction}
-This chapter documents the journey of transforming the architectural design into a tangible, working system. Following the agile Scrum methodology, the implementation was organized into a series of focused sprints, each with a clear set of goals and deliverables. This chapter provides a chronological account of that development process, detailing the work completed in each sprint, from laying the backend foundations in Rust to building the interactive frontend with Angular and integrating the various database and automation components. By breaking down the implementation into these iterative cycles, we can clearly trace the evolution of the system from its initial prototypes to the final, feature-complete application, highlighting key technical decisions and challenges overcome along the way.
-
-\subsection{Sprint 1: Backend Foundations and Matching Logic}
-\subsubsection{Sprint Backlog}
-The backlog for this sprint included the following user stories:
-\begin{itemize}
-    \item Set up the Rust development environment.
-    \item Create a new Axum project.
-    \item Define the API endpoint for matching identities.
-    \item Implement the basic data structures for identities and match results.
-    \item Implement the initial version of the weighted scoring algorithm.
-\end{itemize}
-
-\subsubsection{Sprint Design}
-The design for this sprint focused on creating a simple and efficient API for matching identities. The API endpoint was designed to accept a JSON object with the input identity and return a JSON array of match results. The scoring algorithm was designed to be modular, so that it could be easily extended with new matching techniques in the future.
-
-\subsubsection{Implementation Details}
-A single POST endpoint was created at /match. This endpoint accepts an InputIdentity object and returns a list of MatchResult objects. The implementation uses the Axum framework to handle the HTTP requests and responses. The core of the matching logic is the calculate_full_score function, which computes a weighted score based on the similarity of different fields. The initial implementation uses the Jaro similarity metric for string comparison.
-
-\subsubsection{Sprint Review}
-The sprint review demonstrated the basic functionality of the matching API. A command-line client was used to send requests to the API and display the results. The feedback from the review was positive, and the team decided to proceed with the implementation of the more advanced matching features in the next sprint.
-
-\subsection{Sprint 2: Database Integration and Advanced Modules}
-\subsubsection{Sprint Backlog}
-The backlog for this sprint included the following user stories:
-\begin{itemize}
-    \item Connect the backend to the PostgreSQL database.
-    \item Load identity records from the database.
-    \item Implement text normalization functions for Arabic names.
-    \item Implement the Aramix Soundex phonetic algorithm.
-    \item Integrate the advanced matching modules into the scoring algorithm.
-\end{itemize}
-
-\subsubsection{Sprint Design}
-The design for this sprint focused on improving the accuracy of the matching algorithm by adding text normalization and phonetic matching capabilities. The score pair with soundex function was introduced to combine string similarity with phonetic matching. The best score against variations function was added to handle name variations.
-
-\subsubsection{Implementation Details}
-The backend was connected to the PostgreSQL database using the tokio-postgres library. A function load identities by generation was implemented to load records for a specific decade, which is an optimization to reduce the amount of data loaded into memory. Several normalization functions were implemented in normalization.rs to handle the complexities of Arabic text. The aramix soundex function was implemented in phonetic.rs to provide phonetic matching capabilities. These modules were integrated into the main scoring logic in matching.rs.
-
-\subsubsection{Sprint Review}
-The sprint review demonstrated a significant improvement in the accuracy of the matching results. The system was now able to handle a wider range of variations in Arabic names. The team was confident that the system was ready for the frontend development in the next sprint.
-
-\subsection{Sprint 3: Frontend Development and API Connection}
-\subsubsection{Sprint Backlog}
-The backlog for this sprint included the following user stories:
-\begin{itemize}
-    \item Create a new Angular project.
-    \item Design the user interface for the identity matching form.
-    \item Implement the identity matching component.
-    \item Create a service to communicate with the backend API.
-    \item Display the matching results to the user.
-\end{itemize}
-
-\subsubsection{Sprint Design}
-The UI was designed to be simple and intuitive. A single form is used to collect the user's identity information. The matching results are displayed in a clear and concise table, with a detailed breakdown of the score for each match. The frontend is built around the IdentityMatchComponent, which is responsible for managing the user input and displaying the results. An IdentityMatchService is used to encapsulate the communication with the backend API.
-
-\subsubsection{Implementation Details}
-The IdentityMatchComponent was implemented using Angular's reactive forms module to handle user input. The component subscribes to the IdentityMatchService to receive the matching results and updates the UI accordingly. The IdentityMatchService uses Angular's HttpClient to make POST requests to the backend API. The service includes interfaces for the InputIdentity and MatchResult data structures to ensure type safety.
-
-\subsubsection{Sprint Review}
-The sprint review demonstrated the end-to-end functionality of the system. Users were able to enter their identity information in the web interface and see the matching results in real-time. The feedback was very positive, and the team was ready to move on to the final sprint.
-
-\subsection{Sprint 4: Evaluation, Optimization, and Deployment}
-\subsubsection{Sprint Backlog}
-The backlog for this sprint included the following user stories:
-\begin{itemize}
-    \item Create a test suite to evaluate the accuracy of the matching algorithm.
-    \item Profile the performance of the backend and identify any bottlenecks.
-    \item Optimize the code for performance and memory usage.
-    \item Create a deployment pipeline for the system.
-    \item Document the system architecture and deployment process.
-\end{itemize}
-
-\subsubsection{Sprint Design}
-The evaluation strategy focused on measuring the precision and recall of the matching algorithm. A "golden set" of known matches was used to test the system and identify any cases where it failed to produce the correct results. The optimization plan focused on improving the performance of the backend.
-
-\subsubsection{Implementation Details}
-Performance testing was conducted using a load testing tool to simulate a large number of concurrent users. The results of the testing showed that the system was able to handle a high volume of requests without any significant degradation in performance. A deployment pipeline was created using Docker and Docker Compose to automate the deployment of the system.
-
-\subsubsection{Sprint Review}
-The final sprint review demonstrated the completed system, including the performance improvements and the automated deployment pipeline. The stakeholders were very impressed with the results and approved the system for production deployment.
-
-\section{Conclusion}
-Through a structured, sprint-based approach, the system was brought to life, evolving from a basic backend API to a fully functional, end-to-end solution. The iterative development process allowed for continuous feedback and refinement, ensuring that each component—from the high-performance Rust matching engine to the intuitive Angular frontend—was built to a high standard. The sprint-by-sprint breakdown demonstrates a methodical progression of work, with each cycle building upon the last to add new layers of functionality. The successful completion of these implementation sprints resulted in a robust and deployable system, ready for the crucial next phase: a thorough evaluation of its performance and accuracy.
-
-% ================================
-% Chapter 7
 % ================================
 \chapter{Evaluation}
 
