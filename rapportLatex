@@ -377,7 +377,6 @@ The data science component of the project followed the \textbf{Cross-Industry St
 By integrating these phases into the Scrum sprints, the development of the matching engine was both systematic and agile, ensuring that the data science components were developed iteratively and aligned with the overall project goals.
 
 \section{Project Planning}
-This section consolidates how the project roadmap was executed through Scrum. It opens with the calendar-level planning of the four sprints before recounting, sprint by sprint, the increments produced, the ceremonies that guided adaptation, and the backlog adjustments that kept priorities aligned with stakeholder value.
 \subsection{Sprint Roadmap \& Timeline}
 The six-month academic calendar was translated into a cadence of four production sprints lasting two weeks each, separated by short buffer periods for exams and stakeholder availability. This cadence ensured regular delivery while keeping room for inspection and adaptation.
 
@@ -407,84 +406,14 @@ S4 & Harden and deploy & Docker Compose stack, admin audit trail, pagination, re
 \bottomrule
 \end{longtable}
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=\textwidth]{figures/main.rs diagram.png}
-  \caption{Diagram of the main Rust application flow delivered across sprints.}
-  \label{fig:main-rs-diagram}
-\end{figure}
-
-This narrative documents how each sprint translated the roadmap into working increments, detailing the backlog items selected, the design decisions taken, the implementation approach, and the feedback gathered during the ceremonies.
-
-\subsection{Sprint 1: Backend Foundations and Matching Logic}
-\paragraph{Sprint Backlog}
-The backlog for this sprint included the following user stories:
-\begin{itemize}
-    \item Set up the Rust development environment.
-    \item Create a new Axum project.
-    \item Define the API endpoint for matching identities.
-    \item Implement the basic data structures for identities and match results.
-    \item Implement the initial version of the weighted scoring algorithm.
-\end{itemize}
-
 \paragraph{Sprint Design}
-The design for this sprint focused on creating a simple and efficient API for matching identities. The API endpoint was designed to accept a JSON object with the input identity and return a JSON array of match results. The scoring algorithm was designed to be modular, so that it could be easily extended with new matching techniques in the future.
+The evaluation strategy focused on measuring the precision and recall of the matching algorithm. A "golden set" of known matches was used to test the system and identify any cases where it failed to produce the correct results. The optimization plan focused on improving the performance of the backend.
 
 \paragraph{Implementation Details}
-A single POST endpoint was created at /match. This endpoint accepts an InputIdentity object and returns a list of MatchResult objects. The implementation uses the Axum framework to handle the HTTP requests and responses. The core of the matching logic is the calculate\_full\_score function, which computes a weighted score based on the similarity of different fields. The initial implementation uses the Jaro similarity metric for string comparison.
+Performance testing was conducted using a load testing tool to simulate a large number of concurrent users. The results of the testing showed that the system was able to handle a high volume of requests without any significant degradation in performance. A deployment pipeline was created using Docker and Docker Compose to automate the deployment of the system.
 
 \paragraph{Sprint Review}
-The sprint review demonstrated the basic functionality of the matching API. A command-line client was used to send requests to the API and display the results. The feedback from the review was positive, and the team decided to proceed with the implementation of the more advanced matching features in the next sprint.
-
-\subsection{Sprint 2: Database Integration and Advanced Modules}
-\paragraph{Sprint Backlog}
-The backlog for this sprint included the following user stories:
-\begin{itemize}
-    \item Load identity records from the database.
-    \item Implement text normalization functions for Arabic names.
-    \item Implement the Aramix Soundex phonetic algorithm.
-    \item Integrate the advanced matching modules into the scoring algorithm.
-\end{itemize}
-
-\paragraph{Sprint Design}
-The design for this sprint focused on improving the accuracy of the matching algorithm by adding text normalization and phonetic matching capabilities. The score\_pair\_with\_soundex function was introduced to combine string similarity with phonetic matching. The best\_score\_against\_variations function was added to handle name variations.
-
-\paragraph{Implementation Details}
-The backend was connected to the PostgreSQL database using the tokio-postgres library. A function load\_identities\_by\_generation was implemented to load records for a specific decade, which is an optimization to reduce the amount of data loaded into memory. Several normalization functions were implemented in normalization.rs to handle the complexities of Arabic text. The aramix\_soundex function was implemented in phonetic.rs to provide phonetic matching capabilities. These modules were integrated into the main scoring logic in matching.rs.
-
-\paragraph{Sprint Review}
-The sprint review demonstrated a significant improvement in the accuracy of the matching results. The system was now able to handle a wider range of variations in Arabic names. The team was confident that the system was ready for the frontend development in the next sprint.
-
-\subsection{Sprint 3: Frontend Development and API Connection}
-\paragraph{Sprint Backlog}
-The backlog for this sprint included the following user stories:
-\begin{itemize}
-    \item Create a new Angular project.
-    \item Design the user interface for the identity matching form.
-    \item Implement the identity matching component.
-    \item Create a service to communicate with the backend API.
-    \item Display the matching results to the user.
-\end{itemize}
-
-\paragraph{Sprint Design}
-The UI was designed to be simple and intuitive. A single form is used to collect the user's identity information. The matching results are displayed in a clear and concise table, with a detailed breakdown of the score for each match. The frontend is built around the IdentityMatchComponent, which is responsible for managing the user input and displaying the results. An IdentityMatchService is used to encapsulate the communication with the backend API.
-
-\paragraph{Implementation Details}
-The IdentityMatchComponent was implemented using Angular's reactive forms module to handle user input. The component subscribes to the IdentityMatchService to receive the matching results and updates the UI accordingly. The IdentityMatchService uses Angular's HttpClient to make POST requests to the backend API. The service includes interfaces for the InputIdentity and MatchResult data structures to ensure type safety.
-
-\paragraph{Sprint Review}
-The sprint review demonstrated the end-to-end functionality of the system. Users were able to enter their identity information in the web interface and see the matching results in real-time. The feedback was very positive, and the team was ready to move on to the final sprint.
-
-\subsection{Sprint 4: Evaluation, Optimization, and Deployment}
-\paragraph{Sprint Backlog}
-The backlog for this sprint included the following user stories:
-\begin{itemize}
-    \item Create a test suite to evaluate the accuracy of the matching algorithm.
-    \item Profile the performance of the backend and identify any bottlenecks.
-    \item Optimize the code for performance and memory usage.
-    \item Create a deployment pipeline for the system.
-    \item Document the system architecture and deployment process.
-\end{itemize}
+The final sprint review demonstrated the completed system, including the performance improvements and the automated deployment pipeline. The stakeholders were very impressed with the results and approved the system for production deployment.
 
 \paragraph{Sprint Design}
 The evaluation strategy focused on measuring the precision and recall of the matching algorithm. A "golden set" of known matches was used to test the system and identify any cases where it failed to produce the correct results. The optimization plan focused on improving the performance of the backend.
