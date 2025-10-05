@@ -1,8 +1,15 @@
+% !TEX program = xelatex % (can also use "lualatex") 
 \documentclass[12pt,a4paper]{report}
 
 % --- Preamble ---
 %\usepackage{fontspec}
 \usepackage{polyglossia}
+% --- Scrum visuals & tables ---
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
 \setmainlanguage{english}
 \setotherlanguage{arabic}
@@ -35,20 +42,6 @@
 \begin{document}
 % path to your images folder
 \graphicspath{{figures/}}
-
-\newgeometry{margin=0pt}
-\includepdf[pages=-]{Page Garde Rapport Stage(Ang)_page-0001.jpg}
-\restoregeometry
-\clearpage
-\newgeometry{margin=0pt}
-\includepdf[pages=-]{Page Garde Rapport Stage(Ang)_page-0002.jpg}
-\restoregeometry
-\clearpage
-\newgeometry{margin=0pt}
-\includepdf[pages=-]{Page Garde Rapport Stage(Ang)_page-0003.jpg}
-\restoregeometry
-\clearpage
-% ---- Cover page (first page, unnumbered) ----
 
 
 % Roman numbering for front matter
@@ -326,9 +319,62 @@ The \textbf{n8n workflow}, while central to the family tree generation process, 
 The project follows a hybrid approach, combining the Scrum framework for project management with the CRISP-DM methodology for the data science lifecycle.
 
 \subsection{Scrum Framework}
-The project was managed using the Scrum methodology, an agile framework based on short cycles called sprints, lasting 2 to 4 weeks.
-The Product Owner was the Ministry of Interior. The Scrum Master, Mouaïa Ben Hamed, supported the process, and the development work was carried out by the author.
-Work was planned through sprint backlogs, guided by a clear definition of done, with daily and review meetings.
+
+\subsubsection*{Roles}
+\textbf{Product Owner:} Ministry of Interior\\
+\textbf{Scrum Master:} Mouaïa Ben Hamed\\
+\textbf{Developer:} Ilef (author)
+
+
+\subsubsection*{Events}
+\textbf{Sprint Planning} (2h): select highest-value backlog, define Sprint Goal and DoD.\\
+\textbf{Daily Scrum} (15 min): progress, risks, plan next 24 h.\\
+\textbf{Sprint Review} (1h): demo to PO, capture feedback, re-prioritize.\\
+\textbf{Retrospective} (45 min): keep/change/try actions for next sprint.
+\textit{Note: Scrum of one — Daily = personal stand-up; Review with PO; Retrospective = self-assessment with action items.}
+
+\subsubsection*{Artifacts}
+\textbf{Product Backlog:} ordered by value and feasibility, refined each sprint.\\
+\textbf{Sprint Backlog:} selected items + task breakdown + forecast.\\
+\textbf{Increment:} potentially shippable, meets DoD.
+
+\subsubsection*{Definition of Done (DoD)}
+Code merged, unit tests \(\geq\) 80\% on changed lines, API documented, UI strings reviewed, security checks pass, demo scenario prepared, PO acceptance recorded.
+
+\subsubsection*{Sprint Overview (4 sprints, 2 weeks each)}
+\begin{table}[H]\centering
+\small
+\begin{tabular}{@{}llp{8.5cm}@{}}
+\toprule
+\textbf{Sprint} & \textbf{Goal} & \textbf{Delivered Increment (examples)}\\
+\midrule
+S1 & Backend foundation & Axum skeleton, /match endpoint, scoring v1, CI build\\
+S2 & Accuracy uplift    & PG integration, normalization, Aramix Soundex, gen-load\\
+S3 & Usability          & Angular form + results table, API service, auth flow\\
+S4 & Hardening \& deploy& Golden-set tests, perf tuning (Rayon), Docker Compose, demo\\
+\bottomrule
+\end{tabular}
+\caption{Sprint summary and increments.}
+\end{table}
+
+\subsubsection*{Burndown (sample)}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=\linewidth, height=5cm,
+    xlabel=Day, ylabel=Remaining work (pts),
+    ymin=0, xmin=1, xmax=10, grid=both]
+\addplot coordinates {(1,30) (2,27) (3,23) (4,19) (5,16) (6,12) (7,9) (8,6) (9,3) (10,0)};
+\addlegendentry{Actual}
+\addplot coordinates {(1,30) (10,0)};
+\addlegendentry{Ideal}
+\end{axis}
+\end{tikzpicture}
+\caption{Sprint burndown (illustrative).}
+\end{figure}
+
+\subsubsection*{Backlog Management}
+Refinement weekly. New findings from Reviews add items; low-value items deferred. Priority = business value \(\times\) risk reduction \(\times\) feasibility.
 
 \begin{figure}[H]
     \centering
@@ -395,37 +441,33 @@ The final phase was dedicated to testing, improving, and preparing the system fo
 \end{itemize}
 
 \subsection{Project Backlog}
-The Product Backlog is a dynamic, ordered list of what is needed to improve the product. The following table represents a sample of the initial backlog created for this project, detailing the key epics, user stories, and tasks.
+\noindent The Product Backlog is ordered and refined each sprint. Table \ref{tab:pb} shows representative items and the sprint where they were delivered.
 
-\begin{center}
-\begin{tabular}{|p{3cm}|l|p{6cm}|}
-\hline
-\textbf{Epic} & \textbf{Type} & \textbf{Description} \\
-\hline
-\hline
-Admin Management & User Story & As an Administrator, I want to create, edit, and delete user accounts so that I can manage access to the system. \\
-\hline
-User Management & User Story & As a User, I want to be able to log in and log out of the system to securely access its features. \\
-\hline
-Admin Management & User Story & As an Administrator, I want an audit dashboard to review user actions and system events for security and accountability purposes. \\
-\hline
-\hline
-Core Matching Functionality & User Story & As a Government Agent, I want to input a citizen's biographical details into a form to search for potential matches. \\
-\hline
-\hline
-Family Tree Visualization & User Story & As a Government Agent, I want to click on a matched record to view the individual's family tree. \\
-\hline
-Family Tree Visualization & Task & Create the n8n workflow to query Neo4j, generate a family tree image via the OpenAI API, and return it to the frontend. \\
-\hline
-\hline
-System Infrastructure \& Deployment & Task & Set up the PostgreSQL database and create the necessary tables. \\
-\hline
-System Infrastructure \& Deployment & Task & Dockerize the Rust backend and Angular frontend applications. \\
-\hline
-System Infrastructure \& Deployment & Task & Create a docker-compose.yml file for easy local deployment. \\
-\hline
-\end{tabular}
-\end{center}
+\begin{longtable}{@{}p{3cm}lp{7cm}l@{}}
+\caption{Product Backlog with sprint mapping}\label{tab:pb}\\
+\toprule
+\textbf{Epic} & \textbf{Type} & \textbf{Description} & \textbf{Sprint}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Epic} & \textbf{Type} & \textbf{Description} & \textbf{Sprint}\\
+\midrule
+\endhead
+Admin Management & User Story & As an Administrator, create/edit/delete users. & S1\\
+User Management  & User Story & As a User, log in/out to access features. & S3\\
+Admin Management & User Story & Audit dashboard for actions/events. & S4\\
+Core Matching    & User Story & Agent inputs biographical details to search matches. & S1\\
+Family Tree Viz. & User Story & Click a match to view the family tree. & S3\\
+Family Tree Viz. & Task       & Build n8n workflow to query Neo4j and return image. & S3\\
+System Infra \& Deploy & Task & Provision PostgreSQL schema and tables. & S2\\
+System Infra \& Deploy & Task & Dockerize Rust and Angular apps. & S4\\
+System Infra \& Deploy & Task & Compose file for local stack. & S4\\
+\bottomrule
+\end{longtable}
+
+\paragraph{Backlog Evolution}
+Reviews added items for DB indexing, API pagination, and UI hints; low-value Admin cosmetics were deferred past S4.
+
 
 \subsection{Risk \& Mitigation}
 \begin{enumerate}
