@@ -415,6 +415,15 @@ Performance testing was conducted using a load testing tool to simulate a large 
 \paragraph{Sprint Review}
 The final sprint review demonstrated the completed system, including the performance improvements and the automated deployment pipeline. The stakeholders were very impressed with the results and approved the system for production deployment.
 
+\paragraph{Sprint Design}
+The evaluation strategy focused on measuring the precision and recall of the matching algorithm. A "golden set" of known matches was used to test the system and identify any cases where it failed to produce the correct results. The optimization plan focused on improving the performance of the backend.
+
+\paragraph{Implementation Details}
+Performance testing was conducted using a load testing tool to simulate a large number of concurrent users. The results of the testing showed that the system was able to handle a high volume of requests without any significant degradation in performance. A deployment pipeline was created using Docker and Docker Compose to automate the deployment of the system.
+
+\paragraph{Sprint Review}
+The final sprint review demonstrated the completed system, including the performance improvements and the automated deployment pipeline. The stakeholders were very impressed with the results and approved the system for production deployment.
+
 \subsection{Project Backlog}
 \noindent The Product Backlog is ordered and refined each sprint. Table \ref{tab:pb} shows representative items and the sprint where they were delivered.
 
